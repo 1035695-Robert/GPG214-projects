@@ -1,0 +1,16 @@
+{
+	"box": [
+		{
+			"name": "SmallBox",
+			"colour": "Red"
+		},
+		{
+			"name": "MediumBox",
+			"colour": "Green"
+		},
+		{
+			"name": "LargeBox",
+			"colour": "Blue"
+		}
+	]
+}
