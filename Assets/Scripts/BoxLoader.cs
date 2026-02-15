@@ -36,9 +36,9 @@ public class BoxLoader : MonoBehaviour
                         Debug.Log("Box Loading: " + boxFile.name + boxFile.colour);
                         string colour = boxFile.colour;
 
-                        BoxInformation boxInformation = new BoxInformation();
-                         boxInformation.boxColour = colour;
-                            boxInformation.LoadBoxAsset();
+                        //BoxInformation boxInformation = new BoxInformation();
+                        // boxInformation.boxColour = colour;
+                        //    boxInformation.LoadBoxAsset();
 
                     }                
                 }

@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 551828144140818240}
   - component: {fileID: 8788327269498343738}
   - component: {fileID: 5110129931929459099}
-  - component: {fileID: -6522191542215702448}
-  - component: {fileID: 519619406835822835}
   m_Layer: 0
   m_Name: SmallBox
   m_TagString: Untagged
@@ -138,30 +136,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &-6522191542215702448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8003569193976556215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20df922f74f167949a07edaee187cce0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boxBody: {fileID: 5110129931929459099}
-  beltSpeed: 10
---- !u!114 &519619406835822835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8003569193976556215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb2f5242171b6974f8e61cf286597bc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boxName: 
