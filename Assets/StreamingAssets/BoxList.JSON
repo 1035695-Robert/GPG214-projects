@@ -1,15 +1,15 @@
 {
 	"box": [
 		{
-			"name": "SmallBox",
+			"name": "RedBox",
 			"colour": "Red"
 		},
 		{
-			"name": "MediumBox",
-			"colour": "Green"
+			"name": "YellowBox",
+			"colour": "Yellow"
 		},
 		{
-			"name": "LargeBox",
+			"name": "BlueBox",
 			"colour": "Blue"
 		}
 	]

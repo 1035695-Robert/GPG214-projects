@@ -21,9 +21,9 @@ public class BoxLoader : MonoBehaviour
         {
             string filePath = Path.Combine(Application.streamingAssetsPath, "BoxList.JSON");
           
-                string jsonData = File.ReadAllText(filePath);
+            string jsonData = File.ReadAllText(filePath);
 
-                 myBoxList = JsonUtility.FromJson<BoxList>(jsonData);
+                myBoxList = JsonUtility.FromJson<BoxList>(jsonData);
 
                 foreach(Box boxFile in myBoxList.box)
                 {
@@ -31,15 +31,9 @@ public class BoxLoader : MonoBehaviour
                     if (prefab != null)
                     {
                         Instantiate(prefab, new Vector3(0, 3, 0), Quaternion.identity);
-                
-                        //TextureLoader(boxFile.colour, prefab);
-                        Debug.Log("Box Loading: " + boxFile.name + boxFile.colour);
-                        string colour = boxFile.colour;
-
-                        //BoxInformation boxInformation = new BoxInformation();
-                        // boxInformation.boxColour = colour;
-                        //    boxInformation.LoadBoxAsset();
-
+                   
+                       BoxInformation boxInformation = prefab.GetComponent<BoxInformation>();
+                       boxInformation.TextureLoader(boxFile.colour);
                     }                
                 }
         }

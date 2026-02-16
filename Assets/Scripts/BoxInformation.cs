@@ -3,35 +3,28 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System.IO;
 
-public class BoxInformation: MonoBehaviour
+public class BoxInformation : MonoBehaviour
 {
-    [SerializeField]  public string boxColour;
+    public string boxColour;
 
-    private void Start()
+    public void TextureLoader(string colour)
     {
-        Debug.Log("start information");
-        Renderer renderer = GetComponent<Renderer>();
-    }
-    public void LoadBoxAsset()
-    {
-
+        Debug.Log(colour);
+        boxColour = Path.Combine(Application.streamingAssetsPath, "Texture/" + colour + ".png");
         Debug.Log(boxColour);
-        //load textures
-        string filePath = Path.Combine(Application.streamingAssetsPath,"Texture/" + boxColour + ".png");
-        Debug.Log(filePath);
-        if (File.Exists(filePath))
-       {
-            byte[] imageByte = File.ReadAllBytes(filePath);
+        LoadTextures();
 
-                  Texture2D texture = new Texture2D(2, 2);
-                  texture.LoadImage(imageByte);
+    }
 
-                  GetComponent<Renderer>().material.mainTexture = texture;
-              }
-              else
-              {
-                  Debug.LogError("texture file not fount at path: " + filePath);
-              }
+    private void LoadTextures()
+    {
+        byte[] imageBytes = File.ReadAllBytes(boxColour);
 
+       //create a temporary texture to hold our texture in 
+        Texture2D texture = new Texture2D(2, 2);
+        //takes the byte in and convert it into an image 
+        texture.LoadImage(imageBytes);
+
+        GetComponent<Renderer>().material.mainTexture = texture;
     }
 }
