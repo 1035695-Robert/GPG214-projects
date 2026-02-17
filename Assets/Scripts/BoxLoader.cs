@@ -30,31 +30,14 @@ public class BoxLoader : MonoBehaviour
                     GameObject prefab = Resources.Load<GameObject>("Prefabs/" + boxFile.name);
                     if (prefab != null)
                     {
-                        Instantiate(prefab, new Vector3(0, 3, 0), Quaternion.identity);
+                        GameObject boxPrefab = Instantiate(prefab, new Vector3(0, 3, 0), Quaternion.identity);
                    
                        BoxInformation boxInformation = prefab.GetComponent<BoxInformation>();
-                       boxInformation.TextureLoader(boxFile.colour);
+                       boxInformation.TextureLoader(boxFile.colour, boxPrefab);
                     }                
                 }
+                //need to find a way to make the boxes load not at same time could do that with async from week3, but will need to discuss this with the teacher. 
         }
-    //void TextureLoader(string colour,GameObject prefab)
-    //{
-    //    string filePath = Path.Combine(Application.streamingAssetsPath,"Texture/" + colour +".png");
-
-    //    if (File.Exists(filePath))
-    //    {
-    //        byte[] imageByte = File.ReadAllBytes(filePath);
-
-    //        Texture2D texture = new Texture2D(2, 2);
-    //        texture.LoadImage(imageByte);
-
-    //        prefab.GetComponent<Renderer>().material.mainTexture = texture;
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("texture file not fount at path: " + filePath);
-    //    }
-    //}
 }
         
 

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6442389513910810704}
   - component: {fileID: -8762626049885809203}
   m_Layer: 0
-  m_Name: YellowBox
+  m_Name: GreenBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
