@@ -198,5 +198,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 2.5
-  speed: 2
+  speed: 2.5
   waitTime: 1
