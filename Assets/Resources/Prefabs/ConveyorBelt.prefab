@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 4960695046447220944}
   - component: {fileID: 1840834109794763088}
   - component: {fileID: 6881466241512075873}
-  - component: {fileID: 954854235574969831}
-  - component: {fileID: 7200705874191893937}
   - component: {fileID: 8980106901526363084}
   m_Layer: 0
   m_Name: ConveyorBelt
@@ -112,32 +110,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &954854235574969831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6769948601857862300}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b68aa338506d784997f6978c3f58d85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7200705874191893937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6769948601857862300}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92576938f0b9f164286c9f0d548a2ea5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myBoxList:
-    box: []
 --- !u!65 &8980106901526363084
 BoxCollider:
   m_ObjectHideFlags: 0

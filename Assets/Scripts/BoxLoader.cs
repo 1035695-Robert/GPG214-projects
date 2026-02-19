@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -9,8 +10,10 @@ using UnityEngine.VFX;
 public class BoxLoader : MonoBehaviour
 {
 
-
+   
     public BoxList myBoxList = new BoxList();
+  
+ 
     
     void Start()
     {   
@@ -25,19 +28,22 @@ public class BoxLoader : MonoBehaviour
 
                 myBoxList = JsonUtility.FromJson<BoxList>(jsonData);
 
-                foreach(Box boxFile in myBoxList.box)
-                {
-                    GameObject prefab = Resources.Load<GameObject>("Prefabs/" + boxFile.name);
-                    if (prefab != null)
-                    {
-                        GameObject boxPrefab = Instantiate(prefab, new Vector3(0, 3, 0), Quaternion.identity);
-                   
-                       BoxInformation boxInformation = prefab.GetComponent<BoxInformation>();
-                       boxInformation.TextureLoader(boxFile.colour, boxPrefab);
-                    }                
-                }
-                //need to find a way to make the boxes load not at same time could do that with async from week3, but will need to discuss this with the teacher. 
+        foreach (Box boxFile in myBoxList.box)
+        {
+            GameObject prefab = Resources.Load<GameObject>("Prefabs/" + boxFile.name);
+            if (prefab != null)
+            {
+                GameObject boxPrefab = Instantiate(prefab, new Vector3(0, 3, 0), Quaternion.identity);
+
+                BoxInformation boxInformation = prefab.GetComponent<BoxInformation>();
+                boxInformation.TextureLoader(boxFile.colour, boxPrefab);
+            }
         }
+
+
+        //need to find a way to make the boxes load not at same time could do that with async from week3, but will need to discuss this with the teacher. 
+    }
+
 }
         
 

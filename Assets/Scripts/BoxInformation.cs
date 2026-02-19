@@ -7,6 +7,8 @@ public class BoxInformation : MonoBehaviour
 {
     public string boxColour;
     public Texture2D boxTexture;
+
+   
     public void TextureLoader(string colour, GameObject prefab)
     {
         Debug.Log(colour);
