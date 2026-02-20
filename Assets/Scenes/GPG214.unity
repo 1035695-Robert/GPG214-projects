@@ -711,6 +711,58 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
+--- !u!1 &1740854571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1740854573}
+  - component: {fileID: 1740854572}
+  m_Layer: 0
+  m_Name: Storage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1740854572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740854571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eac65f3a1a8d58488ab297433a58b0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storage:
+    itemsToDeliver:
+    - boxName: GreenBox
+      boxColor: green
+    - boxName: RedBox
+      boxColor: red
+    - boxName: BlueBox
+      boxColor: blue
+--- !u!4 &1740854573
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740854571}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.7843014, y: -1.3616016, z: 3.7682123}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1772475662
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -946,7 +998,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090868433}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04240c826edc4fa41a4d635a47e82a4a, type: 3}
   m_Name: 
@@ -971,8 +1023,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92576938f0b9f164286c9f0d548a2ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myBoxList:
-    box: []
+  package:
+    itemsToDeliver: []
   waitTime: 1.3
 --- !u!1001 &5878023173917157522
 PrefabInstance:
@@ -1055,3 +1107,4 @@ SceneRoots:
   - {fileID: 929557659}
   - {fileID: 1961939398}
   - {fileID: 2090868437}
+  - {fileID: 1740854573}

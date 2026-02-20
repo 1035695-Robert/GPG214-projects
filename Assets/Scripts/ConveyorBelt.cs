@@ -38,7 +38,7 @@ public class ConveyorBelt : MonoBehaviour
         Vector3 startPosition = item.position;
 
         Vector3 endPosition = startPosition + (moveDirection * distance);
-        Debug.Log("Start: "+ startPosition+ " End: " + endPosition + "Rotation: "+ item.rotation);
+        //Debug.Log("Start: "+ startPosition+ " End: " + endPosition + "Rotation: "+ item.rotation);
         float elapsed = 0;
        
         while (elapsed < 1f)

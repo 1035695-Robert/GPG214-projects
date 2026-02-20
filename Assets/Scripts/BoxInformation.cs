@@ -2,32 +2,48 @@ using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.IO;
+using UnityEditor;
+using System.Linq;
+using NUnit.Framework.Internal.Filters;
 
 public class BoxInformation : MonoBehaviour
 {
-    public string boxColour;
-    public Texture2D boxTexture;
+    [Header ("BOX INFO")]
+    [SerializeField] private string boxName;
+    [SerializeField] private string boxColor;
 
-   
-    public void TextureLoader(string colour, GameObject prefab)
+    [SerializeField] private Storage package = new Storage();
+
+    bool found = false;
+
+    //infromation for the box here?
+    public void Start()
     {
-        Debug.Log(colour);
-        boxColour = Path.Combine(Application.streamingAssetsPath, "Texture/" + colour + ".png");
-        
-        Debug.Log(boxColour);
-        LoadTextures(prefab);
-
+        boxName = gameObject.name.TrimEnd("(Clone)");
+        CheckForObjectName();
     }
-
-    private void LoadTextures(GameObject boxPrefab)
+    void CheckForObjectName()
     {
-        byte[] imageBytes = File.ReadAllBytes(boxColour);
+        string filePath = Path.Combine(Application.streamingAssetsPath, "StorageData.JSON");
 
-       //create a temporary texture to hold our texture in 
-        Texture2D boxTexture = new Texture2D(2, 2);
-        //takes the byte in and convert it into an image 
-        boxTexture.LoadImage(imageBytes);
+        string jsonData = File.ReadAllText(filePath);
 
-        boxPrefab.GetComponent<Renderer>().material.mainTexture = boxTexture;
+        package = JsonUtility.FromJson<Storage>(jsonData);
+
+        foreach (Parcels item in package.itemsToDeliver)        
+        {
+            Debug.Log(item.boxName);
+            if (boxName == item.boxName)
+            {
+                boxColor = item.boxColor;
+                found = true;
+                break;
+            } 
+        }
+        if (!found)
+        {
+            Debug.LogError("error could not find" + boxName);
+        }
+        package.itemsToDeliver.RemoveAll(Parcels => Parcels.boxName != boxName);
     }
 }
