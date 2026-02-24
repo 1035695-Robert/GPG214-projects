@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6881466241512075873}
   - component: {fileID: 8980106901526363084}
   m_Layer: 0
-  m_Name: ConveyorBelt
+  m_Name: SplitBelts
   m_TagString: ConveyorBelt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2444888434240651193}
   - component: {fileID: 3073728654217831813}
-  - component: {fileID: 70717047212385648}
+  - component: {fileID: 8448754557628929061}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -185,7 +185,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 1, z: 0.5}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &70717047212385648
+--- !u!114 &8448754557628929061
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,9 +194,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7286866496608672800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab9a79241b15f374c8fecf59ad44c6dd, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c707c83b692d71409a738b332b4a29f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 2.5
   speed: 2
-  waitTime: 1
+  waitTime: 2
+  targetObjectName: BlueBox

@@ -20,6 +20,7 @@ public class BoxInformation : MonoBehaviour
     public void Start()
     {
         boxName = gameObject.name.TrimEnd("(Clone)");
+        transform.name = boxName;
         CheckForObjectName();
     }
     void CheckForObjectName()

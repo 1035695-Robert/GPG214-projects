@@ -27,6 +27,8 @@ public class BoxLoader : MonoBehaviour
         string jsonData = File.ReadAllText(filePath);
         package = JsonUtility.FromJson<Storage>(jsonData);
 
+
+
         foreach (Parcels item in package.itemsToDeliver)
         {
             GameObject prefab = Resources.Load<GameObject>("Prefabs/" + item.boxName);
