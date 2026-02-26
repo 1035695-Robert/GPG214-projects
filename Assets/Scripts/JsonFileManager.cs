@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System.IO;
 
+
 [System.Serializable]
 public class Storage
 {
@@ -16,7 +17,7 @@ public class Parcels
 }
 
 
-public class SaveLoadData : MonoBehaviour
+public class JsonFileManager : MonoBehaviour
 {
     public Storage storage = new Storage();
 

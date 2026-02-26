@@ -791,8 +791,9 @@ GameObject:
   - component: {fileID: 2090868436}
   - component: {fileID: 2090868435}
   - component: {fileID: 2090868434}
-  - component: {fileID: 2090868438}
   - component: {fileID: 2090868439}
+  - component: {fileID: 2090868440}
+  - component: {fileID: 2090868441}
   m_Layer: 0
   m_Name: BoxLoader
   m_TagString: Untagged
@@ -889,26 +890,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2090868438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2090868433}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04240c826edc4fa41a4d635a47e82a4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jsonFileName: BoxList.JSON
-  boxName: RedBox
-  jsonData: 
-  boxColor: 
-  texture: {fileID: 0}
-  boxTexture: {fileID: 0}
-  myBoxList:
-    box: []
 --- !u!114 &2090868439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -924,6 +905,35 @@ MonoBehaviour:
   package:
     itemsToDeliver: []
   waitTime: 2
+--- !u!114 &2090868440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090868433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53be6b13fe591d243af00226048de633, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxObjects: {fileID: 8003569193976556215, guid: 243a4ec3952831f409cdf746db954a97, type: 3}
+  poolSize: 10
+  boxPool: []
+  storage:
+    itemsToDeliver: []
+--- !u!114 &2090868441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090868433}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 804746d366477394bad23e501b1aa70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5878023173917157522
 PrefabInstance:
   m_ObjectHideFlags: 0
