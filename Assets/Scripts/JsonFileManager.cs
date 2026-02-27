@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.IO;
-
+using UnityEditor;
 
 [System.Serializable]
 public class Storage
@@ -12,8 +12,10 @@ public class Storage
 [System.Serializable]
 public class Parcels
 {
+   
     public string boxName;
     public string boxColor;
+    public int poolSize;
 }
 
 

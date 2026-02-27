@@ -1,52 +1,85 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Pool;
+using static UnityEditor.Progress;
 
 
 public class BoxPoolManager : MonoBehaviour
 {
-    public static BoxPoolManager instance;
 
-    public GameObject boxObjects;
-    public int poolSize = 30;
+ 
+    #region Singleton
+    public static BoxPoolManager Instance;
 
-    public List<GameObject> boxPool;
-    public Storage storage = new Storage();
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    #endregion 
+
+    public Dictionary<string, Queue<GameObject>> poolDictionary;
+
+    public Storage package = new Storage();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        instance = this;
-        InitializeBoxPool();
-       
-    }
-    public void InitializeBoxPool()
-    {
-        boxPool = new List<GameObject>();
-       
-        for (int i = 0; i < poolSize; i++)
+        string filePath = Path.Combine(Application.streamingAssetsPath, "StorageData.json");
+        string jsonData = File.ReadAllText(filePath);
+        package = JsonUtility.FromJson<Storage>(jsonData);
+
+        poolDictionary = new Dictionary<string, Queue<GameObject>>();
+      
+        foreach(Parcels item in package.itemsToDeliver)
         {
-            GameObject box = Instantiate(boxObjects);
-            box.SetActive(false);
-            boxPool.Add(box);
+            Queue<GameObject> objectPool = new Queue<GameObject>();
+
+            GameObject prefab = Resources.Load<GameObject>("Prefabs/" + item.boxName);
+
+            for (int i = 0; i < item.poolSize; i++)
+            {   
+                GameObject box = Instantiate(prefab, new Vector3(0, 2.5f, 0), Quaternion.identity);
+                box.name.Replace("(Clone)","");
+               
+                box.SetActive(false);
+                objectPool.Enqueue(box);
+            }
+            poolDictionary.Add(item.boxName, objectPool);
         }
     }
-    
-    public GameObject GetPooledBox()
+
+    public GameObject SpawnFromPool(string itemID, Vector3 position, Quaternion rotation)
     {
-        foreach (var box in boxPool)
+        if (!poolDictionary.ContainsKey(itemID))
         {
-            if (!box.activeInHierarchy)
+            Debug.LogWarning("pool with name" + itemID + " doesnt exist");
+            return null;
+        }
+
+       GameObject objectToSpawn = poolDictionary[itemID].Dequeue();
+       
+            objectToSpawn.SetActive(true);
+            objectToSpawn.transform.position = position;
+            objectToSpawn.transform.rotation = rotation;
+
+        IPooledObject pooledObject = objectToSpawn.GetComponent<IPooledObject>();
+        {
+            if (pooledObject != null)
             {
-                return box;
+                pooledObject.OnObjectSpawn();
             }
         }
+        
+        poolDictionary[itemID].Enqueue(objectToSpawn);
 
-        GameObject newBox = Instantiate(boxObjects);
-        newBox.SetActive(true);
-        boxPool.Add(newBox);
+        return objectToSpawn;
 
-        return newBox;
     }
 }
+//enqueue == adds new element to queue
+//dequeue == removes an element from the queue
+
+//objectPool from Brackeys video on object pool reworked to work with loading information from Json file

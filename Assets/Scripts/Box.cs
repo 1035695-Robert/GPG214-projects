@@ -6,7 +6,7 @@ using UnityEditor;
 using System.Linq;
 using NUnit.Framework.Internal.Filters;
 
-public class BoxInformation : MonoBehaviour
+public class Box : MonoBehaviour, IPooledObject
 {
     [Header ("BOX INFO")]
     [SerializeField] private string boxName;
@@ -46,5 +46,9 @@ public class BoxInformation : MonoBehaviour
             Debug.LogError("error could not find" + boxName);
         }
         package.itemsToDeliver.RemoveAll(Parcels => Parcels.boxName != boxName);
+    }
+    public void OnObjectSpawn()
+    {
+
     }
 }
