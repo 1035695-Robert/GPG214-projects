@@ -5,6 +5,7 @@ public class BeltPlacer : MonoBehaviour
    
     public GameObject conveyorBelt;
     [SerializeField] private float size = 2;
+    
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.G))

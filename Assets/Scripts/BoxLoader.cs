@@ -39,13 +39,11 @@ public class BoxLoader : MonoBehaviour
         Debug.Log(itemID);
         boxPool.SpawnFromPool(itemID, new Vector3(0, 1.5f, 0), Quaternion.identity);
         
-
         isWaiting = false;
     }
 }
+//old Loading
     //public Storage package = new Storage();
-
-    
 
     ////if box is on top compare to spawn same objects
 
@@ -59,8 +57,6 @@ public class BoxLoader : MonoBehaviour
     //    string filePath = Path.Combine(Application.streamingAssetsPath, "StorageData.json");
     //    string jsonData = File.ReadAllText(filePath);
     //    package = JsonUtility.FromJson<Storage>(jsonData);
-
-
 
     //    foreach (Parcels item in package.itemsToDeliver)
     //    {

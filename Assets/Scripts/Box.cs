@@ -5,6 +5,9 @@ using System.IO;
 using UnityEditor;
 using System.Linq;
 using NUnit.Framework.Internal.Filters;
+using System.Collections.Generic;
+using UnityEngine.UIElements;
+using System.Runtime.CompilerServices;
 
 public class Box : MonoBehaviour, IPooledObject
 {
@@ -25,6 +28,8 @@ public class Box : MonoBehaviour, IPooledObject
     }
     void CheckForObjectName()
     {
+        Debug.Log("on activation");
+
         string filePath = Path.Combine(Application.streamingAssetsPath, "StorageData.JSON");
 
         string jsonData = File.ReadAllText(filePath);
@@ -46,9 +51,17 @@ public class Box : MonoBehaviour, IPooledObject
             Debug.LogError("error could not find" + boxName);
         }
         package.itemsToDeliver.RemoveAll(Parcels => Parcels.boxName != boxName);
+        OnObjectSpawn();
+
     }
     public void OnObjectSpawn()
     {
 
+        //HOW DO I GET THE INFROMATION FROM THE PARCEL LIST 
+        for (int i = 0; i < package.itemsToDeliver.Count; i++)
+        {
+            string itemName = package.itemsToDeliver[i].boxName;
+           
+        }
     }
 }
