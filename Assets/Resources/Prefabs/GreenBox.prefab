@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -8762626049885809203}
   m_Layer: 0
   m_Name: GreenBox
-  m_TagString: Untagged
+  m_TagString: BoxItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,4 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2f5242171b6974f8e61cf286597bc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxColour: 
+  boxName: 
+  boxColor: 
+  package:
+    itemsToDeliver: []

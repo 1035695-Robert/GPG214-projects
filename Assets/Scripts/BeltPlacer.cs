@@ -15,10 +15,9 @@ public class BeltPlacer : MonoBehaviour
 
             if (Physics.Raycast(ray, out hitInfo))
             {
-                if (hitInfo.collider.tag != "ConveyorBelt")
-                {
+              
                     PlaceCubeNear(hitInfo.point);
-                }
+               
             }
         }
     }
@@ -35,6 +34,7 @@ public class BeltPlacer : MonoBehaviour
 
         float x = Mathf.RoundToInt(position.x / size) * size;
         float z = Mathf.RoundToInt(position.z / size) * size;
+     
        
         Vector3 result = new Vector3(x, 0.5f, z);
 

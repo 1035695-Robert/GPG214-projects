@@ -8,8 +8,6 @@ using static UnityEditor.Progress;
 
 public class BoxPoolManager : MonoBehaviour
 {
-
- 
     #region Singleton
     public static BoxPoolManager Instance;
 
@@ -76,7 +74,6 @@ public class BoxPoolManager : MonoBehaviour
         poolDictionary[itemID].Enqueue(objectToSpawn);
 
         return objectToSpawn;
-
     }
 }
 //enqueue == adds new element to queue
