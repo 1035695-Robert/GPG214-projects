@@ -29,7 +29,7 @@ public class ScoreText : MonoBehaviour
             }
             else
             {
-                Debug.Log("file does not exist");
+                Debug.LogWarning("file does not exist");
             }
         }
     }
