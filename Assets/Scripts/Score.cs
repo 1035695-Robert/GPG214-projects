@@ -1,13 +1,10 @@
 using System;
-using System.IO;
-using System.Threading;
-using Unity.VisualScripting;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class Score
 {
-    [SerializeField] private float score;
+    [SerializeField] private int score;
 
     //default
     public Score()
@@ -16,7 +13,7 @@ public class Score
     }
     public Score(string scoreData)
     {
-        if (!float.TryParse(scoreData, out score))
+        if (!int.TryParse(scoreData, out score))
         {
             Debug.LogError("CANNOT convert score to integer");
         }

@@ -11,9 +11,11 @@ using System.Runtime.CompilerServices;
 
 public class Box : MonoBehaviour, IPooledObject
 {
-    [Header ("BOX INFO")]
+    [Header("BOX INFO")]
     [SerializeField] private string boxName;
     [SerializeField] private string boxColor;
+    [SerializeField] private int poolSize;
+    [SerializeField] public int point;
 
     [SerializeField] private Storage package = new Storage();
 
@@ -36,19 +38,20 @@ public class Box : MonoBehaviour, IPooledObject
 
         package = JsonUtility.FromJson<Storage>(jsonData);
 
-        foreach (Parcels item in package.itemsToDeliver)        
+        foreach (Parcels item in package.itemsToDeliver)
         {
             Debug.Log(item.boxName);
             if (boxName == item.boxName)
             {
-                boxColor = item.boxColor;
                 found = true;
                 break;
-            } 
+            }
         }
         if (!found)
         {
-            Debug.LogError("error could not find" + boxName);
+            GameObject target = GameObject.Find("Storage");
+            JsonFileManager jsonFileManager =  target.GetComponent<JsonFileManager>();
+            jsonFileManager.AddBoxToList(this.name, this.boxColor, poolSize);
         }
         package.itemsToDeliver.RemoveAll(Parcels => Parcels.boxName != boxName);
         OnObjectSpawn();
@@ -61,7 +64,7 @@ public class Box : MonoBehaviour, IPooledObject
         for (int i = 0; i < package.itemsToDeliver.Count; i++)
         {
             string itemName = package.itemsToDeliver[i].boxName;
-           
+
         }
     }
 }

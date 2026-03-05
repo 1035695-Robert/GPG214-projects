@@ -1,0 +1,45 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.0.62f1
+CRC: 709483823
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 725d352f5a3ab713483abb48d34cab3c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 14da5b18e91b8c4d987fdcff2e4d818a
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: ad8caf09c258ec44f960c4e6d7167af9
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: fb2f5242171b6974f8e61cf286597bc9, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Assembly-CSharp
+  ClassName: Storage
+Assets:
+- Assets/Boxes/BlueBox.prefab
+- Assets/Boxes/RedBox.prefab
+- Assets/Boxes/GreenBox.prefab
+Dependencies: []

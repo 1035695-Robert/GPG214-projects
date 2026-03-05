@@ -151,5 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxName: 
   boxColor: 
+  poolSize: 0
+  point: 1
   package:
     itemsToDeliver: []

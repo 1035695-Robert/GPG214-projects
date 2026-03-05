@@ -754,6 +754,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
+--- !u!1 &1181471378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1181471380}
+  - component: {fileID: 1181471379}
+  m_Layer: 0
+  m_Name: assetBundle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1181471379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181471378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ba653c25b63844dae124c66f39f778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1181471380
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181471378}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.06306669, y: 6.341, z: 7.9181223}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1323416089
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,7 +812,7 @@ GameObject:
   - component: {fileID: 1323416090}
   - component: {fileID: 1323416094}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Void
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -876,6 +920,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c107a07d583b60c4f8b5d315ad501e02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentScoreData:
+    score: 0
+  fileName: ScoreSaveData.txt
+  textFileContents: 
+  points: 0
 --- !u!1001 &1532561555
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1045,54 +1094,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
---- !u!1 &2056455770
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2056455772}
-  - component: {fileID: 2056455771}
-  m_Layer: 0
-  m_Name: Score
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2056455771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2056455770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e0113c58d645b145a11a598f1c50739, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentScoreData:
-    score: 0
-  fileName: ScoreSaveData.txt
-  textFileContents: 
---- !u!4 &2056455772
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2056455770}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.1927557, y: -0.077346906, z: 5.746549}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2060572908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1381,4 +1382,4 @@ SceneRoots:
   - {fileID: 534501178}
   - {fileID: 1323416093}
   - {fileID: 733906322}
-  - {fileID: 2056455772}
+  - {fileID: 1181471380}

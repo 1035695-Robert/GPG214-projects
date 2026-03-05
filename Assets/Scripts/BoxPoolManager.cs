@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Pool;
-using static UnityEditor.Progress;
 
 
 public class BoxPoolManager : MonoBehaviour
@@ -22,33 +21,44 @@ public class BoxPoolManager : MonoBehaviour
 
     public Storage package = new Storage();
 
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
+    {
+        CreatePool();
+    }
+
+    void CreatePool()
     {
         string filePath = Path.Combine(Application.streamingAssetsPath, "StorageData.json");
         string jsonData = File.ReadAllText(filePath);
         package = JsonUtility.FromJson<Storage>(jsonData);
 
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
-      
-        foreach(Parcels item in package.itemsToDeliver)
+
+        foreach (Parcels item in package.itemsToDeliver)
         {
             Queue<GameObject> objectPool = new Queue<GameObject>();
 
             GameObject prefab = Resources.Load<GameObject>("Prefabs/" + item.boxName);
+            if( prefab == null ) 
+            {
+                GameObject bundle = GameObject.Find("assetBundle"); 
+                AssetBundle boxBundle = bundle.GetComponent<AssetBundle>();
 
-            for (int i = 0; i < item.poolSize; i++)
-            {   
+                //GameObject prefab = boxBundle.LoadAsset<GameObject>("YellowBox");
+
+                for (int i = 0; i < item.poolSize; i++)
+            {
                 GameObject box = Instantiate(prefab, new Vector3(0, 2.5f, 0), Quaternion.identity);
-                box.name.Replace("(Clone)","");
-               
+                box.name.Replace("(Clone)", "");
+
                 box.SetActive(false);
                 objectPool.Enqueue(box);
             }
             poolDictionary.Add(item.boxName, objectPool);
         }
     }
-
     public GameObject SpawnFromPool(string itemID, Vector3 position, Quaternion rotation)
     {
         if (!poolDictionary.ContainsKey(itemID))

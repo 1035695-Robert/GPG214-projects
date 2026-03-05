@@ -12,7 +12,7 @@ public class Storage
 [System.Serializable]
 public class Parcels
 {
-   
+
     public string boxName;
     public string boxColor;
     public int poolSize;
@@ -25,11 +25,11 @@ public class JsonFileManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             SaveToJson();
         }
-        if(Input.GetKeyUp(KeyCode.L))
+        if (Input.GetKeyUp(KeyCode.L))
         {
             LoadFromJson();
         }
@@ -52,8 +52,20 @@ public class JsonFileManager : MonoBehaviour
         Parcels[] parcelsArray = storage.itemsToDeliver.ToArray();
         for (int i = 0; i < parcelsArray.Length; i++)
         {
-            Debug.Log("<color="+ parcelsArray[i].boxColor + ">" + parcelsArray[i].boxName);
+            Debug.Log("<color=" + parcelsArray[i].boxColor + ">" + parcelsArray[i].boxName);
         }
+    }
+    public void AddBoxToList(string name, string color, int amount)
+    {
+        storage.itemsToDeliver.Add(new Parcels() { boxName = name, boxColor = color, poolSize = amount});
+    }
+
+    private void OnApplicationQuit()
+    {
+        string storageData = JsonUtility.ToJson(storage);
+        string filePath = Application.streamingAssetsPath + "/StorageData.json";
+        Debug.Log(filePath);
+        File.WriteAllText(filePath, storageData);
     }
 }
 
