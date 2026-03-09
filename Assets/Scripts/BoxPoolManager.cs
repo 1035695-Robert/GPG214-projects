@@ -41,17 +41,15 @@ public class BoxPoolManager : MonoBehaviour
             Queue<GameObject> objectPool = new Queue<GameObject>();
 
             GameObject prefab = Resources.Load<GameObject>("Prefabs/" + item.boxName);
-            if( prefab == null ) 
-            {
-                GameObject bundle = GameObject.Find("assetBundle"); 
-                AssetBundle boxBundle = bundle.GetComponent<AssetBundle>();
-
-                //GameObject prefab = boxBundle.LoadAsset<GameObject>("YellowBox");
+           
 
                 for (int i = 0; i < item.poolSize; i++)
             {
                 GameObject box = Instantiate(prefab, new Vector3(0, 2.5f, 0), Quaternion.identity);
                 box.name.Replace("(Clone)", "");
+
+                AsyncTextureLoad loadTexture = box.GetComponent<AsyncTextureLoad>();
+                loadTexture.InitiateTextureLoader(item.boxColor);
 
                 box.SetActive(false);
                 objectPool.Enqueue(box);
