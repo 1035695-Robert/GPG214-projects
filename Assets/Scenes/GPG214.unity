@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e987f46246c4914589851ffc7839c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textureName: OrangeSlices.png
+  textureName: OrangeSlices
   spriteImage: {fileID: 0}
   texture: {fileID: 0}
 --- !u!114 &629741390

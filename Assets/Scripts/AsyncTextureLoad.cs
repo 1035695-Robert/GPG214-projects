@@ -16,33 +16,33 @@ public class AsyncTextureLoad : MonoBehaviour
 
     IEnumerator Start()
     {
-        yield return StartCoroutine(LoadTextureFromFile());
+        yield return StartCoroutine(LoadTextureFromFile(textureName));
     }
 
-    public void InitiateTextureLoader(string boxColor)
+    
+   public IEnumerator LoadTextureFromFile(string boxColor)
     {
-        textureName = boxColor + ".png";
-        StartCoroutine(LoadTextureFromFile());
-    }
-    IEnumerator LoadTextureFromFile()
-    {
+        if (boxColor != null)
+        {
+            textureName = boxColor;
 
-        UnityWebRequest imageRequest = UnityWebRequest.Get(Path.Combine(Application.streamingAssetsPath, "Texture/" + textureName));
+        }
+        UnityWebRequest imageRequest = UnityWebRequest.Get(Path.Combine(Application.streamingAssetsPath, "Texture/" + textureName + ".png"));
 
         AsyncOperation downloadOperation = imageRequest.SendWebRequest();
 
         while (!downloadOperation.isDone)
         {
-            Debug.Log("download progress: " + ((downloadOperation.progress / 1f) * 100) + "%");
+            Debug.Log(transform.name + ": download progress: " + (( downloadOperation.progress / 1f) * 100) + "%");
             yield return null;
         }
         if (imageRequest.result == UnityWebRequest.Result.ConnectionError || imageRequest.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.LogError("error with downloading file");
+            Debug.LogError("error with downloading file" +imageRequest);
             yield break;
         }
 
-        Debug.Log("download complete");
+        Debug.Log( transform.name +": download complete");
 
         byte[] allDataDownloaded = imageRequest.downloadHandler.data;
         Texture2D myTexture = new Texture2D(2, 2);

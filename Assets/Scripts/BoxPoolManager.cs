@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -25,10 +26,10 @@ public class BoxPoolManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        CreatePool();
+       StartCoroutine(CreatePool());
     }
 
-    void CreatePool()
+    public IEnumerator CreatePool()
     {
         string filePath = Path.Combine(Application.streamingAssetsPath, "StorageData.json");
         string jsonData = File.ReadAllText(filePath);
@@ -49,7 +50,7 @@ public class BoxPoolManager : MonoBehaviour
                 box.name.Replace("(Clone)", "");
 
                 AsyncTextureLoad loadTexture = box.GetComponent<AsyncTextureLoad>();
-                loadTexture.InitiateTextureLoader(item.boxColor);
+                yield return StartCoroutine(loadTexture.LoadTextureFromFile(item.boxColor));
 
                 box.SetActive(false);
                 objectPool.Enqueue(box);
