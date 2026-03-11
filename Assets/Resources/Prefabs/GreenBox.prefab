@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6442389513910810704}
   - component: {fileID: -8762626049885809203}
   - component: {fileID: 3595655812975577313}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GreenBox
   m_TagString: BoxItem
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ MonoBehaviour:
   boxName: 
   boxColor: 
   poolSize: 0
-  point: 1
+  point: 2
   package:
     itemsToDeliver: []
 --- !u!114 &3595655812975577313

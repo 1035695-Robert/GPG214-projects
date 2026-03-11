@@ -52,7 +52,7 @@ public class Box : MonoBehaviour, IPooledObject
             GameObject target = GameObject.Find("Storage");
             JsonFileManager jsonFileManager =  target.GetComponent<JsonFileManager>();
             jsonFileManager.AddBoxToList(this.name, this.boxColor, poolSize);
-        }
+        } 
         package.itemsToDeliver.RemoveAll(Parcels => Parcels.boxName != boxName);
         OnObjectSpawn();
 

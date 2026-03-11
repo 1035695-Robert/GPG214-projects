@@ -16,7 +16,7 @@ public class TitleButtonManager : MonoBehaviour
     }
     public void OnButtonClick(string sceneName)
     {
-        StartCoroutine(LoadSceneAsync(sceneName));
+        
     }
 
 

@@ -1,18 +1,18 @@
 using System.IO;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Void : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
-
-
     public Score currentScoreData = new Score();
     public string fileName = "ScoreSaveData.txt";
     public string textFileContents;
     [SerializeField] private int points;
     private string updatePoints;
+
+    [SerializeField ]private TextMeshProUGUI scoreText;
+   
     private void Start()
     {
         GetScoreFileContent();
@@ -34,6 +34,8 @@ public class Void : MonoBehaviour
                 {
                     Debug.LogError("couldnt get points");
                 }
+                scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+                DisplayScore(pointString);
             }
             else
             {
@@ -61,9 +63,14 @@ public class Void : MonoBehaviour
             updatePoints = points.ToString();
             collision.gameObject.SetActive(false);
 
+            DisplayScore(updatePoints);
+
             currentScoreData = new Score(updatePoints);
             WriteData(currentScoreData.ReturnScoreSaveData());
-
         }
+    }
+    private void DisplayScore(string points)
+    { 
+       scoreText.text = "Box Score: " + points;
     }
 }

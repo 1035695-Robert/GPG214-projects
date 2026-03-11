@@ -33,7 +33,7 @@ public class BoxLoader : MonoBehaviour
         Parcels[] parcelsArray = boxPool.package.itemsToDeliver.ToArray();
         //Debug.Log(parcelsArray.Length);
         int randomIndex = Random.Range(0, parcelsArray.Length);
-        Debug.Log(randomIndex);
+       //Debug.Log(randomIndex);
 
         string itemID = parcelsArray[randomIndex].boxName;
         Debug.Log(itemID);

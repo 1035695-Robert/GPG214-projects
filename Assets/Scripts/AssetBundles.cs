@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using UnityEngine;
 
@@ -5,44 +7,50 @@ public class AssetBundles : MonoBehaviour
 {
     string folderPath = "AssetBundles";
     string fileName = "boxbundle";
-    string combinePath;
+    public string combinePath;
 
-    private AssetBundle boxBundle;
+   public GameObject boxPrefab;
 
-    void Start()
+    public AssetBundle boxBundle;
+
+    void Awake()
     {
-        LoadAssetBundle();
-        LoadBox();
+        StartCoroutine(LoadAssetBundle());
     }
-
-    // Update is called once per frame
     void Update()
     {
 
     }
-    void LoadBox()
+    public void LoadBox(string Name)
     {
         if (boxBundle == null)
         {
             return;
         }
 
-        GameObject boxPrefab = boxBundle.LoadAsset<GameObject>("YellowBox");
-        Instantiate(boxPrefab);
+        boxPrefab = boxBundle.LoadAsset<GameObject>(Name);
+        Texture2D texture = boxBundle.LoadAsset<Texture2D>("Yellow");
+        
         Debug.Log(boxPrefab);
     }
-    void LoadAssetBundle()
+
+    IEnumerator LoadAssetBundle()
     {
         combinePath = Path.Combine(Application.streamingAssetsPath, folderPath, fileName);
 
         if (File.Exists(combinePath))
         {
-            boxBundle = AssetBundle.LoadFromFile(combinePath);
+            var request = AssetBundle.LoadFromFileAsync(combinePath);
+            yield return request;
+
+            boxBundle = request.assetBundle;
             Debug.Log("asset bundle loaded");
+      
         }
         else
         {
-            Debug.Log("file does not exist" + combinePath);
+            Debug.LogError("file does not exist" + combinePath);
+            yield break;
         }
     }
 }

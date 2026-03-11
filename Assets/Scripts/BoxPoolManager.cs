@@ -1,9 +1,13 @@
+using JetBrains.Annotations;
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.Rendering;
 
 
 public class BoxPoolManager : MonoBehaviour
@@ -13,9 +17,13 @@ public class BoxPoolManager : MonoBehaviour
 
     private void Awake()
     {
+
+        //check if instance = null
+        //if not null destory gameobject.
+        //return imediately
+
         Instance = this;
     }
-
     #endregion 
 
     public Dictionary<string, Queue<GameObject>> poolDictionary;
@@ -23,10 +31,14 @@ public class BoxPoolManager : MonoBehaviour
     public Storage package = new Storage();
 
     
+
+    public  GameObject boxPrefab;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       StartCoroutine(CreatePool());
+        
+        StartCoroutine(CreatePool());
     }
 
     public IEnumerator CreatePool()
@@ -39,38 +51,53 @@ public class BoxPoolManager : MonoBehaviour
 
         foreach (Parcels item in package.itemsToDeliver)
         {
+
+
             Queue<GameObject> objectPool = new Queue<GameObject>();
 
-            GameObject prefab = Resources.Load<GameObject>("Prefabs/" + item.boxName);
-           
 
-                for (int i = 0; i < item.poolSize; i++)
+
+
+             boxPrefab = Resources.Load<GameObject>("Prefabs/" + item.boxName);
+
+            if (boxPrefab == null)
             {
-                GameObject box = Instantiate(prefab, new Vector3(0, 2.5f, 0), Quaternion.identity);
-                box.name.Replace("(Clone)", "");
-
-                AsyncTextureLoad loadTexture = box.GetComponent<AsyncTextureLoad>();
-                yield return StartCoroutine(loadTexture.LoadTextureFromFile(item.boxColor));
-
-                box.SetActive(false);
-                objectPool.Enqueue(box);
+                AssetBundles bundles = GameObject.Find("assetBundle").GetComponent<AssetBundles>();
+                Debug.Log("try to create: " + item.boxName);
+                bundles.LoadBox(item.boxName);
+                boxPrefab = bundles.boxPrefab;
             }
-            poolDictionary.Add(item.boxName, objectPool);
+
+
+            for (int i = 0; i < item.poolSize; i++)
+            {
+             
+                    GameObject box = Instantiate(boxPrefab, new Vector3(0, 2.5f, 0), Quaternion.identity);
+                    box.name.Replace("(Clone)", "");
+
+                    AsyncTextureLoad loadTexture = box.GetComponent<AsyncTextureLoad>();
+                    yield return StartCoroutine(loadTexture.FilePath(item.boxColor));
+
+                    box.SetActive(false);
+                    objectPool.Enqueue(box);
+            }
+                poolDictionary.Add(item.boxName, objectPool);
         }
+
     }
     public GameObject SpawnFromPool(string itemID, Vector3 position, Quaternion rotation)
-    {
+    {// this is a factory pattern
         if (!poolDictionary.ContainsKey(itemID))
         {
             Debug.LogWarning("pool with name" + itemID + " doesnt exist");
             return null;
         }
 
-       GameObject objectToSpawn = poolDictionary[itemID].Dequeue();
-       
-            objectToSpawn.SetActive(true);
-            objectToSpawn.transform.position = position;
-            objectToSpawn.transform.rotation = rotation;
+        GameObject objectToSpawn = poolDictionary[itemID].Dequeue();
+
+        objectToSpawn.SetActive(true);
+        objectToSpawn.transform.position = position;
+        objectToSpawn.transform.rotation = rotation;
 
         IPooledObject pooledObject = objectToSpawn.GetComponent<IPooledObject>();
         {
@@ -79,7 +106,7 @@ public class BoxPoolManager : MonoBehaviour
                 pooledObject.OnObjectSpawn();
             }
         }
-        
+
         poolDictionary[itemID].Enqueue(objectToSpawn);
 
         return objectToSpawn;
