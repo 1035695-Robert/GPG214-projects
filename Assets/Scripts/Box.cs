@@ -55,7 +55,6 @@ public class Box : MonoBehaviour, IPooledObject
         } 
         package.itemsToDeliver.RemoveAll(Parcels => Parcels.boxName != boxName);
         OnObjectSpawn();
-
     }
     public void OnObjectSpawn()
     {
@@ -64,7 +63,6 @@ public class Box : MonoBehaviour, IPooledObject
         for (int i = 0; i < package.itemsToDeliver.Count; i++)
         {
             string itemName = package.itemsToDeliver[i].boxName;
-
         }
     }
 }

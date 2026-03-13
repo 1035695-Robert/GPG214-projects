@@ -2,6 +2,7 @@ using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using UnityEngine;
+using System;
 
 public class AssetBundles : MonoBehaviour
 {
@@ -9,48 +10,51 @@ public class AssetBundles : MonoBehaviour
     string fileName = "boxbundle";
     public string combinePath;
 
-   public GameObject boxPrefab;
+    public GameObject[] boxPrefabs;
 
     public AssetBundle boxBundle;
 
     void Awake()
     {
-        StartCoroutine(LoadAssetBundle());
+        LoadAssetBundle();
     }
-    void Update()
+    private void LoadAssetBundle()
     {
-
-    }
-    public void LoadBox(string Name)
-    {
-        if (boxBundle == null)
+        try
         {
-            return;
+            combinePath = Path.Combine(Application.streamingAssetsPath, folderPath, fileName);
+
+            if (File.Exists(combinePath))
+            {
+                var request = AssetBundle.LoadFromFileAsync(combinePath);
+                boxBundle = request.assetBundle;
+
+                if (boxBundle == null)
+                {
+                    Debug.LogError("failed to load AssetBundle");
+                }
+
+                boxPrefabs = boxBundle.LoadAllAssets<GameObject>();
+                Debug.Log(boxPrefabs.ToString());
+
+            }
         }
-
-        boxPrefab = boxBundle.LoadAsset<GameObject>(Name);
-        Texture2D texture = boxBundle.LoadAsset<Texture2D>("Yellow");
-        
-        Debug.Log(boxPrefab);
-    }
-
-    IEnumerator LoadAssetBundle()
-    {
-        combinePath = Path.Combine(Application.streamingAssetsPath, folderPath, fileName);
-
-        if (File.Exists(combinePath))
+        catch (FileNotFoundException e)
         {
-            var request = AssetBundle.LoadFromFileAsync(combinePath);
-            yield return request;
-
-            boxBundle = request.assetBundle;
-            Debug.Log("asset bundle loaded");
-      
+            Debug.LogError("file Not Found:" + e.Message);
         }
-        else
+        catch (Exception e)
         {
-            Debug.LogError("file does not exist" + combinePath);
-            yield break;
+            Debug.LogError("an Error Has Occurrred: " + e.Message);
+        }
+        finally
+        {
+            if (boxBundle != null)
+            {
+                boxBundle.Unload(false);
+                Debug.Log("bundle memory cleaned up.");
+
+            }
         }
     }
 }

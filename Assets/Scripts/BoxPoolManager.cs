@@ -3,11 +3,13 @@ using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.Rendering;
+using System.IO.Compression;
 
 
 public class BoxPoolManager : MonoBehaviour
@@ -30,14 +32,14 @@ public class BoxPoolManager : MonoBehaviour
 
     public Storage package = new Storage();
 
-    
 
-    public  GameObject boxPrefab;
+
+    public GameObject boxPrefab;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
         StartCoroutine(CreatePool());
     }
 
@@ -52,36 +54,34 @@ public class BoxPoolManager : MonoBehaviour
         foreach (Parcels item in package.itemsToDeliver)
         {
 
-
             Queue<GameObject> objectPool = new Queue<GameObject>();
 
+            //boxPrefab = Resources.Load<GameObject>("Prefabs/" + item.boxName);
 
-
-
-             boxPrefab = Resources.Load<GameObject>("Prefabs/" + item.boxName);
+            //loading them async helps load them more efficiently
+            var request = Resources.LoadAsync<GameObject>("Prefabs/" + item.boxName);
+            boxPrefab = request.asset as GameObject;
 
             if (boxPrefab == null)
             {
                 AssetBundles bundles = GameObject.Find("assetBundle").GetComponent<AssetBundles>();
                 Debug.Log("try to create: " + item.boxName);
-                bundles.LoadBox(item.boxName);
-                boxPrefab = bundles.boxPrefab;
+                boxPrefab = bundles.boxPrefabs.SingleOrDefault(p => p.name == item.boxName);
             }
-
 
             for (int i = 0; i < item.poolSize; i++)
             {
-             
-                    GameObject box = Instantiate(boxPrefab, new Vector3(0, 2.5f, 0), Quaternion.identity);
-                    box.name.Replace("(Clone)", "");
 
-                    AsyncTextureLoad loadTexture = box.GetComponent<AsyncTextureLoad>();
-                    yield return StartCoroutine(loadTexture.FilePath(item.boxColor));
+                GameObject box = Instantiate(boxPrefab, new Vector3(0, 2.5f, 0), Quaternion.identity);
+                box.name.Replace("(Clone)", "");
 
-                    box.SetActive(false);
-                    objectPool.Enqueue(box);
+                AsyncTextureLoad loadTexture = box.GetComponent<AsyncTextureLoad>();
+                yield return StartCoroutine(loadTexture.FilePath(item.boxColor));
+
+                box.SetActive(false);
+                objectPool.Enqueue(box);
             }
-                poolDictionary.Add(item.boxName, objectPool);
+            poolDictionary.Add(item.boxName, objectPool);
         }
 
     }

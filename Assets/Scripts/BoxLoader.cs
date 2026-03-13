@@ -37,7 +37,7 @@ public class BoxLoader : MonoBehaviour
 
         string itemID = parcelsArray[randomIndex].boxName;
         Debug.Log(itemID);
-        boxPool.SpawnFromPool(itemID, new Vector3(0, 1.5f, 0), Quaternion.identity);
+        boxPool.SpawnFromPool(itemID, new Vector3(transform.position.x + 2, 1.5f, transform.position.z), Quaternion.identity);
         
         isWaiting = false;
     }
