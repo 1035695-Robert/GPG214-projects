@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 512168902984422126}
   - component: {fileID: 7106186736841223236}
   - component: {fileID: -2910744042326889940}
-  - component: {fileID: 1957517154979517282}
+  - component: {fileID: -8042762494044014867}
   m_Layer: 6
   m_Name: RedBox
   m_TagString: BoxItem
@@ -156,7 +156,7 @@ MonoBehaviour:
   point: 3
   package:
     itemsToDeliver: []
---- !u!114 &1957517154979517282
+--- !u!114 &-8042762494044014867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

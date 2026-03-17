@@ -2,13 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Belts :MonoBehaviour
+public class Belts : MonoBehaviour
 {
     Transform moveDirection;
 
     [SerializeField] protected float distance = 2.5f;
     [SerializeField] protected float speed = 2.0f;
-    protected  float waitTime = 1.6f;
+    protected float waitTime = 1.6f;
     protected bool isMoving = false;
 
     private Rigidbody detectedBox;
@@ -37,3 +37,5 @@ public class Belts :MonoBehaviour
 
     }
 }
+
+   

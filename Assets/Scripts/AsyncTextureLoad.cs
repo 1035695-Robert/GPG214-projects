@@ -16,10 +16,6 @@ public class AsyncTextureLoad : MonoBehaviour
     [SerializeField] private Texture texture;
 
 
-    IEnumerator Start()
-    {
-        yield return StartCoroutine(FilePath(textureName));
-    }
 
     public IEnumerator FilePath(string boxColor)
     {

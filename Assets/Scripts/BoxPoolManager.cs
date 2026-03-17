@@ -3,13 +3,14 @@ using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.Rendering;
-using System.IO.Compression;
+using UnityEngine.UIElements;
 
 
 public class BoxPoolManager : MonoBehaviour
@@ -31,7 +32,7 @@ public class BoxPoolManager : MonoBehaviour
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
     public Storage package = new Storage();
-
+    TextureLoadAsync loadTexture;
 
 
     public GameObject boxPrefab;
@@ -39,7 +40,7 @@ public class BoxPoolManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        loadTexture = GetComponent<TextureLoadAsync>();
         StartCoroutine(CreatePool());
     }
 
@@ -69,22 +70,47 @@ public class BoxPoolManager : MonoBehaviour
                 boxPrefab = bundles.boxPrefabs.SingleOrDefault(p => p.name == item.boxName);
             }
 
+
+            yield return StartCoroutine(loadTexture.FilePath(item.boxColor));
+
+
             for (int i = 0; i < item.poolSize; i++)
             {
 
                 GameObject box = Instantiate(boxPrefab, new Vector3(0, 2.5f, 0), Quaternion.identity);
-                box.name.Replace("(Clone)", "");
 
-                AsyncTextureLoad loadTexture = box.GetComponent<AsyncTextureLoad>();
-                yield return StartCoroutine(loadTexture.FilePath(item.boxColor));
-
+                #region oldTextureMethod
+                //AsyncTextureLoad loadTextureOld = box.GetComponent<AsyncTextureLoad>();
+                //yield return StartCoroutine(loadTextureOld.FilePath(item.boxColor));
+                #endregion //this method slows down the Game run time due to it loading all the textures onto each object.          
+                
+                box.name.TrimEnd("(Clone)");
                 box.SetActive(false);
+
+                AddTexture(box, loadTexture.ReturnTexture());
+
                 objectPool.Enqueue(box);
+
             }
             poolDictionary.Add(item.boxName, objectPool);
         }
 
     }
+
+    public void AddTexture(GameObject box, Texture texture)
+    {
+        if (texture != null)
+        {
+            box.GetComponent<Renderer>().material.mainTexture = texture;
+        }
+        else
+        {
+            box.GetComponent<Renderer>().material.color = Color.magenta;
+        }
+    }
+
+
+
     public GameObject SpawnFromPool(string itemID, Vector3 position, Quaternion rotation)
     {// this is a factory pattern
         if (!poolDictionary.ContainsKey(itemID))
@@ -115,4 +141,4 @@ public class BoxPoolManager : MonoBehaviour
 //enqueue == adds new element to queue
 //dequeue == removes an element from the queue
 
-//objectPool from Brackeys video on object pool reworked to work with loading information from Json file
+//objectPool from Brackeys video on object pool reworked to work with loading information from Json file and addition of loading object from assetbundles
