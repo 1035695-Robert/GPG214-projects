@@ -16,7 +16,10 @@ public class AsyncTextureLoad : MonoBehaviour
     [SerializeField] private Texture texture;
 
 
-
+    private IEnumerator Start()
+    {
+        yield return StartCoroutine(FilePath(textureName));
+    }
     public IEnumerator FilePath(string boxColor)
     {
         if (boxColor != null)
@@ -39,9 +42,6 @@ public class AsyncTextureLoad : MonoBehaviour
     {
 
         UnityWebRequest imageRequest = UnityWebRequest.Get(filePath);
-
-
-
 
         AsyncOperation downloadOperation = imageRequest.SendWebRequest();
 

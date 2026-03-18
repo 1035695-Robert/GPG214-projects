@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
-using static TreeEditor.TextureAtlas;
 
 public class TextureLoadAsync : MonoBehaviour
 {
@@ -25,6 +24,7 @@ public class TextureLoadAsync : MonoBehaviour
         string filePath = Path.Combine(Application.streamingAssetsPath, "Texture/" + textureName + ".png");
         if (!File.Exists(filePath))
         {
+            texture = null;
             yield return null;
         }
 
@@ -49,7 +49,7 @@ public class TextureLoadAsync : MonoBehaviour
         if (imageRequest.result == UnityWebRequest.Result.ConnectionError || imageRequest.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.LogWarning("error with downloading file" + imageRequest);
-            texture = null;//box.GetComponent<Renderer>().material.color = Color.magenta;
+            
             yield break;
         }
 
@@ -71,10 +71,7 @@ public class TextureLoadAsync : MonoBehaviour
         yield return null;
     }
 
-    public TextureLoadAsync()
-    {
-
-    }
+   
     public Texture ReturnTexture()
     {
         return texture;

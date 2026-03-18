@@ -194,7 +194,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5164429098144415337, guid: 74c7e0047be4d3a459992b4ea9667569, type: 3}
       propertyPath: m_Name
-      value: BoxLoader (1)
+      value: BoxLoader
       objectReference: {fileID: 0}
     - target: {fileID: 5164429098144415337, guid: 74c7e0047be4d3a459992b4ea9667569, type: 3}
       propertyPath: m_IsActive
@@ -336,7 +336,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 15, z: -6.41}
+  m_LocalPosition: {x: 0, y: 2.77, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1074,6 +1074,62 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f165fa5e127abdf43b762cc470cb6ed0, type: 3}
+--- !u!1 &1090294340
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1090294342}
+  - component: {fileID: 1090294341}
+  m_Layer: 0
+  m_Name: TextureManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1090294341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090294340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cbdbbab6b820245ad698e0290e81b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BoxLoaderM: {fileID: 0}
+  beltMaterial: {fileID: 0}
+  beltTexture: {fileID: 0}
+  splitBelt: {fileID: 0}
+  belt: {fileID: 0}
+  boxLoader: {fileID: 0}
+  splitBeltNormal: {fileID: 0}
+  beltNormal: {fileID: 0}
+  boxLoaderNormal: {fileID: 0}
+  splitBeltAO: {fileID: 0}
+  beltAO: {fileID: 0}
+  boxLoaderARM: {fileID: 0}
+--- !u!4 &1090294342
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090294340}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.2083864, y: 0.30647087, z: 2.7713783}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1181471378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,7 +1363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6769948601857862300, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
       propertyPath: m_Name
-      value: ConveyorBelt (1)
+      value: ConveyorBelt
       objectReference: {fileID: 0}
     - target: {fileID: 6769948601857862300, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1451,7 +1507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6769948601857862300, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
       propertyPath: m_Name
-      value: ConveyorBelt (3)
+      value: ConveyorBelt
       objectReference: {fileID: 0}
     - target: {fileID: 6769948601857862300, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1685,7 +1741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6769948601857862300, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
       propertyPath: m_Name
-      value: ConveyorBelt (4)
+      value: ConveyorBelt
       objectReference: {fileID: 0}
     - target: {fileID: 6769948601857862300, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1750,7 +1806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6769948601857862300, guid: f165fa5e127abdf43b762cc470cb6ed0, type: 3}
       propertyPath: m_Name
-      value: SplitBelts (1)
+      value: SplitBelts
       objectReference: {fileID: 0}
     - target: {fileID: 8448754557628929061, guid: f165fa5e127abdf43b762cc470cb6ed0, type: 3}
       propertyPath: angleToRotate
@@ -1819,7 +1875,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6769948601857862300, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
       propertyPath: m_Name
-      value: ConveyorBelt (2)
+      value: ConveyorBelt
       objectReference: {fileID: 0}
     - target: {fileID: 6769948601857862300, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1922,3 +1978,4 @@ SceneRoots:
   - {fileID: 1742780305}
   - {fileID: 1549439096}
   - {fileID: 1994001572}
+  - {fileID: 1090294342}
