@@ -20,6 +20,7 @@ public class NewAsyncTexture : MonoBehaviour
     public Texture2D boxLoaderARM;
 
     GameObject[] objects;
+
     IEnumerator Start()
     {
         objects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
@@ -39,15 +40,15 @@ public class NewAsyncTexture : MonoBehaviour
         var requestSplitN = Resources.LoadAsync<Texture2D>("textures/split_n");
         var requestBoxLoaderN = Resources.LoadAsync<Texture2D>("textures/BoxLoader_n");
 
-        var requestSplitAO = Resources.LoadAsync<Sprite>("textures/split_AO");
-        var requestBeltAO = Resources.LoadAsync<Sprite>("textures/PushArrow_AO");
+        var requestSplitAO = Resources.LoadAsync<Texture2D>("textures/split_AO");
+        var requestBeltAO = Resources.LoadAsync<Texture2D>("textures/PushArrow_AO");
         var requestBoxLoaderARM = Resources.LoadAsync<Texture2D>("textures/BoxLoader_arm");
 
         splitBelt = requestSplit.asset as Sprite;
         belt = requestBelt.asset as Sprite;
         boxLoader = requestBoxLoader.asset as Sprite;
 
-        boxLoaderNormal = requestBeltN.asset as Texture2D;
+        boxLoaderNormal = requestBoxLoaderN.asset as Texture2D;
         beltNormal = requestBeltN.asset as Texture2D;
         splitBeltNormal = requestSplitN.asset as Texture2D;
 
@@ -68,11 +69,16 @@ public class NewAsyncTexture : MonoBehaviour
             if (obj.name == "ConveyorBelt")
             {
                 MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
+                
+                renderer.material.EnableKeyword("_NORMALMAP");
+                renderer.material.EnableKeyword("_OCCLUSIONMAP");
 
                 renderer.material.SetTexture("_BaseMap", beltTex);
                 renderer.material.SetTexture("_BumpMap", beltNormal);
-                renderer.material.SetFloat("_BumpScale", 2f);
+                //renderer.material.SetFloat("_BumpScale", 2f);
                 renderer.material.SetTexture("_OcclusionMap", beltAO);
+
+               
             }
         }
     }
@@ -87,11 +93,16 @@ public class NewAsyncTexture : MonoBehaviour
             {
 
                 MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
+                
+                renderer.material.EnableKeyword("_NORMALMAP");
+                renderer.material.EnableKeyword("_OCCLUSIONMAP");
 
                 renderer.material.SetTexture("_BaseMap", splitTex);
-                renderer.material.SetTexture("_BumpMap", beltNormal);
-                renderer.material.SetFloat("_BumpScale", 2f);
+                renderer.material.SetTexture("_BumpMap", splitBeltNormal);
+                //renderer.material.SetFloat("_BumpScale", 2f);
                 renderer.material.SetTexture("_OcclusionMap", splitBeltAO);
+
+
             }
         }
     }
@@ -106,10 +117,18 @@ public class NewAsyncTexture : MonoBehaviour
             {
                 MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
 
+                renderer.material.EnableKeyword("_NORMALMAP");
+                renderer.material.EnableKeyword("_OCCLUSIONMAP");
+                renderer.material.EnableKeyword("_METALLICSPECGLOSSMAP");
+
                 renderer.material.SetTexture("_BaseMap", boxLoaderTex);
                 renderer.material.SetTexture("_BumpMap", boxLoaderNormal);
-                renderer.material.SetFloat("_BumpScale", 2f);
+                // renderer.material.SetFloat("_BumpScale", 2f);
                 renderer.material.SetTexture("_OcclusionMap", boxLoaderARM);
+                renderer.material.SetTexture("_MetallicGlossMap", boxLoaderARM);
+
+                
+
             }
         }
     }

@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class BeltPlacer : MonoBehaviour
 {
-   
+
     public GameObject conveyorBelt;
     [SerializeField] private float size = 2;
-    
+
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G))
         {
             RaycastHit hitInfo;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hitInfo))
             {
-              
+                if (hitInfo.transform.name == "Void")
                     PlaceCubeNear(hitInfo.point);
-               
+
             }
         }
     }
@@ -25,7 +25,8 @@ public class BeltPlacer : MonoBehaviour
     public void PlaceCubeNear(Vector3 point)
     {
         var finalposition = CalculateSnappedPosition(point);
-         Instantiate(conveyorBelt,finalposition, Quaternion.identity);
+        GameObject newBelt = Instantiate(conveyorBelt, finalposition, Quaternion.identity);
+
     }
 
     public Vector3 CalculateSnappedPosition(Vector3 position)
@@ -34,14 +35,14 @@ public class BeltPlacer : MonoBehaviour
 
         float x = Mathf.RoundToInt(position.x / size) * size;
         float z = Mathf.RoundToInt(position.z / size) * size;
-     
-       
+
+
         Vector3 result = new Vector3(x, 0.5f, z);
 
         result += transform.position;
 
         return result;
-        
+
     }
 
     private void OnDrawGizmos()
