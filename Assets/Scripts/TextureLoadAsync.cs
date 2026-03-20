@@ -71,7 +71,25 @@ public class TextureLoadAsync : MonoBehaviour
         yield return null;
     }
 
-   
+    //IEnumerator LoadTextureFromFile(string filePath)
+    //    string filePath = Path.Combine(path);
+
+    //    if (File.Exists(filePath))
+    //    {
+    //        byte[] imageData = File.ReadAllBytes(filePath);
+
+    //        Texture2D texture = new Texture2D(2, 2);
+    //        texture.LoadImage(imageData);
+
+    //        GetComponent<Renderer>().material.mainTexture = texture;
+    //        Debug.Log("texture is found");
+    //        yield return null;
+    //    }
+    //    else
+    //    { 
+    //        GetComponent<Renderer>().material.color = Color.magenta;
+    //        yield break;
+    //    }
     public Texture ReturnTexture()
     {
         return texture;

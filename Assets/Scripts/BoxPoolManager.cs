@@ -68,6 +68,10 @@ public class BoxPoolManager : MonoBehaviour
                 AssetBundles bundles = GameObject.Find("assetBundle").GetComponent<AssetBundles>();
                 Debug.Log("try to create: " + item.boxName);
                 boxPrefab = bundles.boxPrefabs.SingleOrDefault(p => p.name == item.boxName);
+                if(boxPrefab == null)
+                {
+                    Debug.LogError("prefab can not be found");
+                }
             }
 
 
