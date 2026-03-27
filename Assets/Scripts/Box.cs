@@ -30,7 +30,7 @@ public class Box : MonoBehaviour, IPooledObject
     }
     void CheckForObjectName()
     {
-        Debug.Log("on activation");
+        //Debug.Log("on activation");
 
         string filePath = Path.Combine(Application.streamingAssetsPath, "StorageData.JSON");
 
@@ -40,7 +40,7 @@ public class Box : MonoBehaviour, IPooledObject
 
         foreach (Parcels item in package.itemsToDeliver)
         {
-            Debug.Log(item.boxName);
+            //Debug.Log(item.boxName);
             if (boxName == item.boxName)
             {
                 found = true;

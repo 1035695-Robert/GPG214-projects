@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ConveyorBelts : Belts
+public class ConveyorBelts : MonoBehaviour
 {
     private void OnTriggerEnter(Collider detect)
     {
@@ -10,13 +10,13 @@ public class ConveyorBelts : Belts
             detect.transform.rotation = transform.rotation;
         }
     }
-    private void OnTriggerStay(Collider detect)
-    {
-        if (!isMoving && detect.GetComponent<Rigidbody>() != null)
-        {
-            StartCoroutine(MoveItem(detect.transform));
-        }
-    }
+    //private void OnTriggerStay(Collider detect)
+    //{
+    //    if (!isMoving && detect.GetComponent<Rigidbody>() != null)
+    //    {
+    //        StartCoroutine(MoveItem(detect.transform));
+    //    }
+    //}
 
   
 }

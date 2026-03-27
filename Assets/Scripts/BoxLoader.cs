@@ -9,17 +9,23 @@ using UnityEngine.UIElements;
 using UnityEngine.VFX;
 
 public class BoxLoader : MonoBehaviour
-{ 
+{
     BoxPoolManager boxPool;
     public float waitTime = 1f;
     bool isWaiting = false;
+
+    private float rayDistance = 2f;
     private void Start()
     {
         boxPool = BoxPoolManager.Instance;
+
     }
+
+
+
     void FixedUpdate()
     {
-        if(isWaiting == false)
+        if (isWaiting == false)
         {
             StartCoroutine(SpawnBoxObjectFromPool());
         }
@@ -27,48 +33,47 @@ public class BoxLoader : MonoBehaviour
     IEnumerator SpawnBoxObjectFromPool()
     {
         isWaiting = true;
-
         yield return new WaitForSeconds(waitTime);
 
         Parcels[] parcelsArray = boxPool.package.itemsToDeliver.ToArray();
         //Debug.Log(parcelsArray.Length);
         int randomIndex = Random.Range(0, parcelsArray.Length);
-       //Debug.Log(randomIndex);
+        //Debug.Log(randomIndex);
 
         string itemID = parcelsArray[randomIndex].boxName;
-        Debug.Log(itemID);
+        //Debug.Log(itemID);
         boxPool.SpawnFromPool(itemID, new Vector3(transform.position.x + 2, 1.5f, transform.position.z), Quaternion.identity);
-        
+
         isWaiting = false;
     }
 }
 //old Loading
-    //public Storage package = new Storage();
+//public Storage package = new Storage();
 
-    ////if box is on top compare to spawn same objects
+////if box is on top compare to spawn same objects
 
-    //void Start()
-    //{
-    //    StartCoroutine(LoadObjectsFromJson());
-    //}
+//void Start()
+//{
+//    StartCoroutine(LoadObjectsFromJson());
+//}
 
-    //IEnumerator LoadObjectsFromJson()
-    //{
-    //    string filePath = Path.Combine(Application.streamingAssetsPath, "StorageData.json");
-    //    string jsonData = File.ReadAllText(filePath);
-    //    package = JsonUtility.FromJson<Storage>(jsonData);
+//IEnumerator LoadObjectsFromJson()
+//{
+//    string filePath = Path.Combine(Application.streamingAssetsPath, "StorageData.json");
+//    string jsonData = File.ReadAllText(filePath);
+//    package = JsonUtility.FromJson<Storage>(jsonData);
 
-    //    foreach (Parcels item in package.itemsToDeliver)
-    //    {
-    //        GameObject prefab = Resources.Load<GameObject>("Prefabs/" + item.boxName);
-    //        GameObject boxPrefab = Instantiate(prefab, new Vector3(0, 1.5f, 0), Quaternion.identity);
+//    foreach (Parcels item in package.itemsToDeliver)
+//    {
+//        GameObject prefab = Resources.Load<GameObject>("Prefabs/" + item.boxName);
+//        GameObject boxPrefab = Instantiate(prefab, new Vector3(0, 1.5f, 0), Quaternion.identity);
 
-    //        yield return new WaitForSeconds(waitTime);
-    //    }
-    //    yield return null;
+//        yield return new WaitForSeconds(waitTime);
+//    }
+//    yield return null;
 
-    //    //need to find a way to make the boxes load not at same time could do that with async from week3, but will need to discuss this with the teacher.
-    //}
+//    //need to find a way to make the boxes load not at same time could do that with async from week3, but will need to discuss this with the teacher.
+//}
 
 
-        
+

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8788327269498343738}
   - component: {fileID: 5110129931929459099}
   - component: {fileID: 5871911365789081873}
+  - component: {fileID: -1021703813287629561}
   m_Layer: 6
   m_Name: BlueBox
   m_TagString: BoxItem
@@ -155,3 +156,18 @@ MonoBehaviour:
   point: 1
   package:
     itemsToDeliver: []
+--- !u!114 &-1021703813287629561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8003569193976556215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543ba7e1335d27849b7f718ca972a444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMoving: 0
+  waitTime: 2
+  speed: 2

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1456477541396168525}
   - component: {fileID: -5812513123778375461}
   - component: {fileID: -5626905186470029217}
+  - component: {fileID: 6093145579382294939}
   m_Layer: 6
   m_Name: YellowBox
   m_TagString: BoxItem
@@ -155,3 +156,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6093145579382294939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4692885205368470998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543ba7e1335d27849b7f718ca972a444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMoving: 0
+  waitTime: 2
+  speed: 2

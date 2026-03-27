@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1939791893427687718}
   - component: {fileID: -6442389513910810704}
   - component: {fileID: -8762626049885809203}
+  - component: {fileID: -3520794937428650219}
   m_Layer: 6
   m_Name: GreenBox
   m_TagString: BoxItem
@@ -135,7 +136,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &-8762626049885809203
 MonoBehaviour:
@@ -155,3 +156,18 @@ MonoBehaviour:
   point: 2
   package:
     itemsToDeliver: []
+--- !u!114 &-3520794937428650219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357264898172304561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543ba7e1335d27849b7f718ca972a444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMoving: 0
+  waitTime: 2
+  speed: 2

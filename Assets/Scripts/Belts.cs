@@ -11,31 +11,31 @@ public class Belts : MonoBehaviour
     protected float waitTime = 1.6f;
     protected bool isMoving = false;
 
-    private Rigidbody detectedBox;
+    //G Rigidbody detectedBox;
 
 
-    protected IEnumerator MoveItem(Transform item)
-    {
-        isMoving = true;
-        yield return new WaitForSeconds(waitTime);
-        Vector3 moveDirection = item.transform.forward;
-        Vector3 startPosition = item.transform.position;
+    //protected IEnumerator MoveItem(Transform item)
+    //{
+    ////    isMoving = true;
+    ////    yield return new WaitForSeconds(waitTime);
+    ////    Vector3 moveDirection = item.transform.forward;
+    ////    Vector3 startPosition = item.transform.position;
 
-        Vector3 endPosition = startPosition + (moveDirection * distance);
+    ////    Vector3 endPosition = startPosition + (moveDirection * distance);
 
-        //Debug.Log("Start: "+ startPosition+ " End: " + endPosition + "Rotation: "+ item.rotation);
-        float elapsed = 0;
+    ////    //Debug.Log("Start: "+ startPosition+ " End: " + endPosition + "Rotation: "+ item.rotation);
+    ////    float elapsed = 0;
 
-        while (elapsed < 1f)
-        {
-            item.position = Vector3.Lerp(startPosition, endPosition, elapsed);
-            elapsed += Time.deltaTime * speed;
-            yield return null;
-        }
-        item.position = endPosition;
-        isMoving = false;
+    ////    while (elapsed < 1f)
+    ////    {
+    ////        item.position = Vector3.Lerp(startPosition, endPosition, elapsed);
+    ////        elapsed += Time.deltaTime * speed;
+    ////        yield return null;
+    ////    }
+    ////    item.position = endPosition;
+    ////    isMoving = false;
 
-    }
+    //}
 }
 
    

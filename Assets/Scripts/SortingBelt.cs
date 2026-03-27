@@ -2,7 +2,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
-public class SortingBelt : Belts
+public class SortingBelt : MonoBehaviour
 {
     [SerializeField] string[] targetObjectName;
     [SerializeField] float angleToRotate;
@@ -14,11 +14,11 @@ public class SortingBelt : Belts
             other.transform.Rotate(Vector3.up, angleToRotate);
         }
     }
-    private void OnTriggerStay(Collider detectedObject)
-    {
-        if (!isMoving && detectedObject.GetComponent<Rigidbody>() != null)
-        {
-            StartCoroutine(MoveItem(detectedObject.transform));
-        }
-    }
+    //private void OnTriggerStay(Collider detectedObject)
+    //{
+    //    if (!isMoving && detectedObject.GetComponent<Rigidbody>() != null)
+    //    {
+    //        StartCoroutine(MoveItem(detectedObject.transform));
+    //    }
+    //}
 }
