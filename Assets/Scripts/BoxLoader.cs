@@ -14,26 +14,59 @@ public class BoxLoader : MonoBehaviour
     public float waitTime = 1f;
     bool isWaiting = false;
 
-    private float rayDistance = 2f;
+    RaycastHit hit;
+    float maxDistance = 2f;
+
     private void Start()
     {
         boxPool = BoxPoolManager.Instance;
-
+   
     }
 
-
-
-    void FixedUpdate()
+    public void OnEnable()
     {
-        if (isWaiting == false)
-        {
-            StartCoroutine(SpawnBoxObjectFromPool());
-        }
+        EventManager.BoxDetection.AddListener(BoxDetected);
     }
+    public void OnDisable()
+    {
+        EventManager.BoxDetection.AddListener(BoxDetected);
+    }
+
+    public void BoxDetected()
+    {
+        if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
+        {
+            Debug.DrawRay(transform.position, transform.forward * maxDistance, Color.red);
+            if (hit.transform.tag != "BoxItem")
+            {
+                Debug.Log("no boxes found");
+                SpawnBoxObjectFromPool();
+            }
+            
+        }
+        else
+            {
+          
+                EventManager.BoxMove.Invoke();
+            }
+        
+    }
+
+
+
+    //void FixedUpdate()
+    //{
+    //    if (isWaiting == false)
+    //    {
+    //        StartCoroutine(SpawnBoxObjectFromPool());
+    //    }
+    //}
+
+
     IEnumerator SpawnBoxObjectFromPool()
     {
-        isWaiting = true;
-        yield return new WaitForSeconds(waitTime);
+        //isWaiting = true;
+        //yield return new WaitForSeconds(waitTime);
 
         Parcels[] parcelsArray = boxPool.package.itemsToDeliver.ToArray();
         //Debug.Log(parcelsArray.Length);
@@ -44,7 +77,7 @@ public class BoxLoader : MonoBehaviour
         //Debug.Log(itemID);
         boxPool.SpawnFromPool(itemID, new Vector3(transform.position.x + 2, 1.5f, transform.position.z), Quaternion.identity);
 
-        isWaiting = false;
+        //isWaiting = false;
     }
 }
 //old Loading
