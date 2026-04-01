@@ -170,4 +170,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMoving: 0
   waitTime: 2
-  speed: 2
+  speed: 10

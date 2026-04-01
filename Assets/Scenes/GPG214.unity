@@ -583,6 +583,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &535367575 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5164429098144415337, guid: 74c7e0047be4d3a459992b4ea9667569, type: 3}
+  m_PrefabInstance: {fileID: 1632630421686412816}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &629741388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,7 +1044,7 @@ Transform:
   m_GameObject: {fileID: 930171429}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8591342, y: 3.3811505, z: 3.3589065}
+  m_LocalPosition: {x: -9.27, y: 3.3811505, z: 3.3589065}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1419,14 +1424,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1508667023}
   - component: {fileID: 1508667022}
-  - component: {fileID: 1508667024}
   m_Layer: 0
   m_Name: ProceduralGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1508667022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1439,7 +1443,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4465d55c125bfa4393dc8d5e1b8512e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs: []
+  beltPrefab: {fileID: 6769948601857862300, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
+  numberOfBeltPrefabs: 2
+  boxLoaderPrefab: {fileID: 535367575}
+  numberOfBoxLoaderPrefabs: 2
   genrationAreaSize: {x: 50, y: 1, z: 50}
   parentContainer: {fileID: 0}
   absoluteGroundLevel: 0.5
@@ -1459,27 +1466,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1508667024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1508667021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4465d55c125bfa4393dc8d5e1b8512e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabs:
-  - prefab: {fileID: 6769948601857862300, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
-    numberOfPrefabsInstances: 40
-  - prefab: {fileID: 5164429098144415337, guid: 74c7e0047be4d3a459992b4ea9667569, type: 3}
-    numberOfPrefabsInstances: 10
-  genrationAreaSize: {x: 50, y: 1, z: 50}
-  parentContainer: {fileID: 0}
-  absoluteGroundLevel: 0.5
-  size: 2
 --- !u!1001 &1532561555
 PrefabInstance:
   m_ObjectHideFlags: 0

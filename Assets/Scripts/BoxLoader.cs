@@ -14,13 +14,10 @@ public class BoxLoader : MonoBehaviour
     public float waitTime = 1f;
     bool isWaiting = false;
 
-    RaycastHit hit;
-    float maxDistance = 2f;
 
     private void Start()
     {
         boxPool = BoxPoolManager.Instance;
-   
     }
 
     public void OnEnable()
@@ -34,22 +31,24 @@ public class BoxLoader : MonoBehaviour
 
     public void BoxDetected()
     {
+        RaycastHit hit;
+        float maxDistance = 2f;
+
         if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
         {
             Debug.DrawRay(transform.position, transform.forward * maxDistance, Color.red);
-            if (hit.transform.tag != "BoxItem")
+            if (hit.transform.tag == "BoxItem")
             {
-                Debug.Log("no boxes found");
-                SpawnBoxObjectFromPool();
-            }
-            
-        }
-        else
-            {
-          
                 EventManager.BoxMove.Invoke();
             }
-        
+
+        }
+        else
+        {
+            Debug.Log("no boxes found");
+            StartCoroutine(SpawnBoxObjectFromPool());
+
+        }
     }
 
 
@@ -63,11 +62,11 @@ public class BoxLoader : MonoBehaviour
     //}
 
 
-    IEnumerator SpawnBoxObjectFromPool()
+    public IEnumerator SpawnBoxObjectFromPool()
     {
         //isWaiting = true;
-        //yield return new WaitForSeconds(waitTime);
-
+        // yield return new WaitForSeconds(waitTime);
+        
         Parcels[] parcelsArray = boxPool.package.itemsToDeliver.ToArray();
         //Debug.Log(parcelsArray.Length);
         int randomIndex = Random.Range(0, parcelsArray.Length);
@@ -75,9 +74,12 @@ public class BoxLoader : MonoBehaviour
 
         string itemID = parcelsArray[randomIndex].boxName;
         //Debug.Log(itemID);
-        boxPool.SpawnFromPool(itemID, new Vector3(transform.position.x + 2, 1.5f, transform.position.z), Quaternion.identity);
-
-        //isWaiting = false;
+        if (itemID != null)
+        {
+            boxPool.SpawnFromPool(itemID, new Vector3(transform.localPosition.x + 2, transform.position.y + 2,transform.position.z) , Quaternion.identity);
+        }
+        yield return null;
+        // isWaiting = false;
     }
 }
 //old Loading

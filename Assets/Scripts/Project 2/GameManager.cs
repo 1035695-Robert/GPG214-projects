@@ -2,7 +2,7 @@ using System.Collections;
 using System.Threading;
 using UnityEngine;
 
-public class GameTimer : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     float waittime = 2f;
 
@@ -15,7 +15,6 @@ public class GameTimer : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("activate event");
             EventManager.BoxDetection.Invoke();
             yield return new WaitForSeconds(waittime);
         }

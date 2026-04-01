@@ -24,8 +24,11 @@ public class BoxPoolManager : MonoBehaviour
         //check if instance = null
         //if not null destory gameobject.
         //return imediately
-
         Instance = this;
+
+
+        loadTexture = GetComponent<TextureLoadAsync>();
+        StartCoroutine(CreatePool());
     }
     #endregion 
 
@@ -38,11 +41,7 @@ public class BoxPoolManager : MonoBehaviour
     public GameObject boxPrefab;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        loadTexture = GetComponent<TextureLoadAsync>();
-        StartCoroutine(CreatePool());
-    }
+   
 
     public IEnumerator CreatePool()
     {
@@ -118,6 +117,10 @@ public class BoxPoolManager : MonoBehaviour
 
     public GameObject SpawnFromPool(string itemID, Vector3 position, Quaternion rotation)
     {// this is a factory pattern
+
+        
+
+
         if (!poolDictionary.ContainsKey(itemID))
         {
             Debug.LogWarning("pool with name" + itemID + " doesnt exist");
