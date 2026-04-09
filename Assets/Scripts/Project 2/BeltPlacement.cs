@@ -1,0 +1,72 @@
+
+using Unity.VisualScripting;
+using UnityEngine;
+using System.Collections.Generic;
+
+
+public class BeltPlacement : MonoBehaviour
+{
+    [SerializeField] private Texture2D levelTexture;
+    [SerializeField] private List<GameObject> objectToSpawn;
+    [SerializeField] private int cellSize;
+
+    void Start()
+    {
+        for (int x = 0; x < levelTexture.width; x++)
+        {
+            for (int z = 0; z < levelTexture.height; z++)
+            {
+                Color color = levelTexture.GetPixel(x, z);
+                Debug.Log(color);
+                string hexColor = color.ToHexString();
+                Debug.Log(hexColor);
+                Vector3 spawnPosition = GridPlacement(x, z);
+
+                switch (hexColor)
+                {
+                    case "FFFFFFFF": // White = Null/Default
+                        break;
+
+                    case "0000FFFF": //Blue = Belt
+                        Debug.Log("BLUE " + spawnPosition);
+                        GameObject belt = objectToSpawn[0];
+                        ItemSpawn(spawnPosition, belt);
+                        break;
+
+                    case "FF0000FF": //Red = Goals
+                        Debug.Log("RED");
+                        GameObject goal = objectToSpawn[1];
+                        ItemSpawn(spawnPosition, goal);
+
+                        break;
+
+                    case "00FF00FF": // green = BoxLoaders
+                        Debug.Log("GREEN");
+                        GameObject loader = objectToSpawn[2];
+                        ItemSpawn(spawnPosition, loader);
+                        break;
+
+                    case "00000000": //black = Obstacles
+                        GameObject obstacle = objectToSpawn[3];
+                        ItemSpawn(spawnPosition, obstacle);
+                        break;
+
+
+                }
+            }
+        }
+    }
+
+    void ItemSpawn(Vector3 spawnPosition, GameObject prefab)
+    {
+        Instantiate(prefab, spawnPosition, Quaternion.identity);
+    }
+
+    Vector3 GridPlacement(int X, int Z)
+    {
+        float x = Mathf.RoundToInt(X) * cellSize;
+        float z = Mathf.RoundToInt(Z) * cellSize;
+
+        return new Vector3(x, 0, z);
+    }
+}

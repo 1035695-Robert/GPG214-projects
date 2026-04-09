@@ -3,15 +3,15 @@ using UnityEngine.Events;
 
 public class EventManager
 {
-//if box is infont of boxLoader 
-// dont spawn new box
+    //if box is infont of boxLoader 
+    // dont spawn new box
 
-//move box
-        // collision will rotate box on enter
-      
-    public static UnityEvent BoxMove = new UnityEvent();
+    //move box
+    // collision will rotate box on enter
+    public delegate void BoxMove();
+    public static BoxMove boxMove;
 
-    public static UnityEvent BoxDetection = new UnityEvent();
-
+    public delegate void BoxDetection();
+    public static BoxDetection boxDetection;
    
 }

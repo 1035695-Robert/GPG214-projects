@@ -12,9 +12,7 @@ public class BoxLoader : MonoBehaviour
 {
     BoxPoolManager boxPool;
     public float waitTime = 1f;
-    bool isWaiting = false;
-
-
+ 
     private void Start()
     {
         boxPool = BoxPoolManager.Instance;
@@ -22,11 +20,11 @@ public class BoxLoader : MonoBehaviour
 
     public void OnEnable()
     {
-        EventManager.BoxDetection.AddListener(BoxDetected);
+        EventManager.boxDetection += BoxDetected;
     }
     public void OnDisable()
     {
-        EventManager.BoxDetection.AddListener(BoxDetected);
+        EventManager.boxDetection -= BoxDetected;
     }
 
     public void BoxDetected()
@@ -39,7 +37,7 @@ public class BoxLoader : MonoBehaviour
             Debug.DrawRay(transform.position, transform.forward * maxDistance, Color.red);
             if (hit.transform.tag == "BoxItem")
             {
-                EventManager.BoxMove.Invoke();
+                EventManager.boxMove.Invoke();
             }
 
         }

@@ -1,13 +1,11 @@
-using Unity.VisualScripting;
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-public class ItemGenerationTexture : MonoBehaviour
+public class BeltSpawn : MonoBehaviour
 {
+
     public Texture2D LevelTexture;
 
-    public GameObject objectToSpawn;
+    public GameObject[] objectToSpawn;
 
     public float SpawnDepth;
     public float spacing;
@@ -18,12 +16,8 @@ public class ItemGenerationTexture : MonoBehaviour
         SpawnBeltFromImage();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
-    public void SpawnBeltFromImage()
+    private void SpawnBeltFromImage()
     {
         if (LevelTexture == null)
         {
@@ -31,24 +25,26 @@ public class ItemGenerationTexture : MonoBehaviour
             return;
         }
         bool[,] occupiedPixels = new bool[LevelTexture.width, LevelTexture.height];
-
-        int beltCount = 0;
-        for (float y = 0; y < LevelTexture.height; y += beltPixelSize)
+        for (int i = 0; i < objectToSpawn.Length; i++)
         {
-            for (float x = 0; x < LevelTexture.width; x += beltPixelSize)
-            {//check to see if i can spawn the belt
-                if (CanSpawnBelt(LevelTexture, Mathf.FloorToInt(x), Mathf.FloorToInt(y), occupiedPixels))
-                {
-                    //if i can mark it as occupied.
-                    MarkOccupied(Mathf.FloorToInt(x), Mathf.FloorToInt(y), occupiedPixels);
+            int itemCount = 0;
+            for (float y = 0; y < LevelTexture.height; y += beltPixelSize)
+            {
+                for (float x = 0; x < LevelTexture.width; x += beltPixelSize)
+                {//check to see if i can spawn the belt
+                    if (CanSpawnBelt(LevelTexture, Mathf.FloorToInt(x), Mathf.FloorToInt(y), occupiedPixels))
+                    {
+                        //if i can mark it as occupied.
+                        MarkOccupied(Mathf.FloorToInt(x), Mathf.FloorToInt(y), occupiedPixels);
 
-                    Vector3 spawnPosition = new Vector3(x * spacing, y * spacing, SpawnDepth)+ transform.position;
-                    Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+                        Vector3 spawnPosition = new Vector3(x * spacing, 0, y * spacing) + transform.position;
+                        Instantiate(objectToSpawn[i], spawnPosition, Quaternion.identity);
 
-                    beltCount++;
-                    Debug.Log("coin Spawned in " + beltCount);
+                        itemCount++;
+                        //Debug.Log("item Spawned in " + itemCount);
+                    }
+
                 }
-
             }
         }
     }
@@ -73,6 +69,7 @@ public class ItemGenerationTexture : MonoBehaviour
                     return false;
                 }
                 Color pixelColor = image.GetPixel(pixelX, pixelY);
+                Debug.Log(pixelColor);
                 if (isRed(pixelColor))
                 {
                     redPixelCount++;
@@ -102,8 +99,29 @@ public class ItemGenerationTexture : MonoBehaviour
         }
     }
 
+    //Red will be belt placement
     private bool isRed(Color color)
     {
         return color.r > 0 && color.g < 1 && color.b < 1;
     }
+
+    //white will be NULL space
+    private bool isWhite(Color color)
+    {
+        return color.r == 1 && color.g == 1 && color.b == 1;
+    }
+
+    //black will be obstactles
+    private bool isBlack(Color color)
+    {
+        return color.r == 0 && color.g == 0 && color.b == 0;
+    }
+
+    //blue will be boxGoals
+    private bool isBlue(Color color)
+    {
+        return color.r < 1 && color.g < 1 && color.b > 0;
+    }
 }
+
+

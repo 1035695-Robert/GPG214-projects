@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            EventManager.BoxDetection.Invoke();
+            EventManager.boxDetection.Invoke();
             yield return new WaitForSeconds(waittime);
         }
     }

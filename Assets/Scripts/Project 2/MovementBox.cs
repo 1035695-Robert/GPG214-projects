@@ -12,12 +12,12 @@ public class MovementBox : MonoBehaviour
 
     public void OnEnable()
     {
-        EventManager.BoxMove.AddListener(MoveAllBox);
+        EventManager.boxMove += MoveAllBox;
     }
 
     private void OnDisable()
     {
-        EventManager.BoxMove.RemoveListener(MoveAllBox);
+        EventManager.boxMove -= MoveAllBox;
     }
     void MoveAllBox()
     {
