@@ -27,8 +27,11 @@ public class BoxPoolManager : MonoBehaviour
         Instance = this;
 
 
-        loadTexture = GetComponent<TextureLoadAsync>();
-        StartCoroutine(CreatePool());
+
+    }
+    private void OnEnable()
+    {
+        EventManager.objectPool += CreatePool;
     }
     #endregion 
 
@@ -41,10 +44,12 @@ public class BoxPoolManager : MonoBehaviour
     public GameObject boxPrefab;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-   
+
 
     public IEnumerator CreatePool()
     {
+        loadTexture = GetComponent<TextureLoadAsync>();
+
         string filePath = Path.Combine(Application.streamingAssetsPath, "StorageData.json");
         string jsonData = File.ReadAllText(filePath);
         package = JsonUtility.FromJson<Storage>(jsonData);
@@ -62,16 +67,18 @@ public class BoxPoolManager : MonoBehaviour
             var request = Resources.LoadAsync<GameObject>("Prefabs/" + item.boxName);
             boxPrefab = request.asset as GameObject;
 
+            //if (boxPrefab == null)
+            //{
+            //    AssetBundles bundles = GameObject.Find("assetBundle").GetComponent<AssetBundles>();
+
+            //    Debug.Log("try to create: " + item.boxName);
+            //    boxPrefab = bundles.boxPrefabs.SingleOrDefault(p => p.name == item.boxName);
             if (boxPrefab == null)
             {
-                AssetBundles bundles = GameObject.Find("assetBundle").GetComponent<AssetBundles>();
-                Debug.Log("try to create: " + item.boxName);
-                boxPrefab = bundles.boxPrefabs.SingleOrDefault(p => p.name == item.boxName);
-                if(boxPrefab == null)
-                {
-                    Debug.LogError("prefab can not be found");
-                }
+                yield break;
+               // Debug.LogError("prefab can not be found");
             }
+            //}
 
 
             yield return StartCoroutine(loadTexture.FilePath(item.boxColor));
@@ -86,7 +93,7 @@ public class BoxPoolManager : MonoBehaviour
                 //AsyncTextureLoad loadTextureOld = box.GetComponent<AsyncTextureLoad>();
                 //yield return StartCoroutine(loadTextureOld.FilePath(item.boxColor));
                 #endregion //this method slows down the Game run time due to it loading all the textures onto each object.          
-                
+
                 box.name.TrimEnd("(Clone)");
                 box.SetActive(false);
 
@@ -97,7 +104,7 @@ public class BoxPoolManager : MonoBehaviour
             }
             poolDictionary.Add(item.boxName, objectPool);
         }
-
+        yield break;
     }
 
     public void AddTexture(GameObject box, Texture texture)
@@ -110,7 +117,7 @@ public class BoxPoolManager : MonoBehaviour
         {
             box.GetComponent<Renderer>().material.color = Color.magenta;
         }
-        
+
     }
 
 
@@ -118,7 +125,7 @@ public class BoxPoolManager : MonoBehaviour
     public GameObject SpawnFromPool(string itemID, Vector3 position, Quaternion rotation)
     {// this is a factory pattern
 
-        
+
 
 
         if (!poolDictionary.ContainsKey(itemID))

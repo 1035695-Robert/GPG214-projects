@@ -39,7 +39,6 @@ public class BoxLoader : MonoBehaviour
             {
                 EventManager.boxMove.Invoke();
             }
-
         }
         else
         {

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,5 +14,11 @@ public class EventManager
 
     public delegate void BoxDetection();
     public static BoxDetection boxDetection;
+
+    public delegate IEnumerator GenerateLevel();
+    public static GenerateLevel generateLevel;
+
+    public delegate IEnumerator ObjectPool();
+    public static ObjectPool objectPool;
    
 }
