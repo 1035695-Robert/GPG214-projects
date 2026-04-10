@@ -1,3 +1,4 @@
+using SimpleFactory;
 using System.Collections;
 using UnityEngine;
 
@@ -19,16 +20,23 @@ public class NewAsyncTexture : MonoBehaviour
     public Texture2D beltAO;
     public Texture2D boxLoaderARM;
 
-    GameObject[] objects;
+    Texture2D boxLoaderTex;
+    Texture2D beltTex;
+    Texture2D splitTex;
 
-    IEnumerator Start()
+    private void OnEnable()
     {
-        objects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
-        yield return StartCoroutine(LoadTexture());
-        LoadTextureToBelt();
-        LoadTextureToBeltSplit();
-        LoadTextureToBoxLoader();
+        EventManager.ItemTextureLoad += TextureLoad;
     }
+    private void OnDisable()
+    {
+        EventManager.ItemTextureLoad -= TextureLoad;
+    }
+    private void Awake()
+    {
+        StartCoroutine(LoadTexture());
+    }
+
 
     private IEnumerator LoadTexture()
     {
@@ -45,8 +53,11 @@ public class NewAsyncTexture : MonoBehaviour
         var requestBoxLoaderARM = Resources.LoadAsync<Texture2D>("textures/BoxLoader_arm");
 
         splitBelt = requestSplit.asset as Sprite;
+        splitTex = TextureFromSprite(splitBelt);
         belt = requestBelt.asset as Sprite;
+        beltTex = TextureFromSprite(belt);
         boxLoader = requestBoxLoader.asset as Sprite;
+        boxLoaderTex = TextureFromSprite(boxLoader);
 
         boxLoaderNormal = requestBoxLoaderN.asset as Texture2D;
         beltNormal = requestBeltN.asset as Texture2D;
@@ -59,79 +70,74 @@ public class NewAsyncTexture : MonoBehaviour
         yield return null;
         //this could be done more compact.
     }
-
-    private void LoadTextureToBelt()
-    {//need to convert to texture from sprite
-        Texture2D beltTex = TextureFromSprite(belt);
-
-        foreach (GameObject obj in objects)
+    public void TextureLoad(GameObject gameItem)
+    {
+        Debug.Log(gameItem.name);
+        string item = gameItem.name.ToString();
+        switch (item)
         {
-            if (obj.name == "ConveyorBelt")
-            {
-                MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
-                
-                renderer.material.EnableKeyword("_NORMALMAP");
-                renderer.material.EnableKeyword("_OCCLUSIONMAP");
+            case "ConveyorBelt":
+                LoadTextureToBelt(gameItem);
+                break;
 
-                renderer.material.SetTexture("_BaseMap", beltTex);
-                renderer.material.SetTexture("_BumpMap", beltNormal);
-                //renderer.material.SetFloat("_BumpScale", 2f);
-                renderer.material.SetTexture("_OcclusionMap", beltAO);
+            case "BoxLoader":
+                LoadTextureToBoxLoader(gameItem);
+                break;
 
-               
-            }
+            case "SplitBelts":
+                LoadTextureToBeltSplit(gameItem);
+                break;
         }
     }
-    private void LoadTextureToBeltSplit()
+    public void LoadTextureToBelt(GameObject obj)
+    {//need to convert to texture from sprite
+       
+
+       MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
+
+        renderer.material.EnableKeyword("_NORMALMAP");
+        renderer.material.EnableKeyword("_OCCLUSIONMAP");
+
+        renderer.material.SetTexture("_BaseMap", beltTex);
+        renderer.material.SetTexture("_BumpMap", beltNormal);
+        //renderer.material.SetFloat("_BumpScale", 2f);
+        renderer.material.SetTexture("_OcclusionMap", beltAO);
+    }
+    public void LoadTextureToBeltSplit(GameObject obj)
     {
         //need to convert to texture from sprite
         Texture2D splitTex = TextureFromSprite(splitBelt);
 
-        foreach (GameObject obj in objects)
-        {
-            if (obj.name == "SplitBelts")
-            {
+        MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
 
-                MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
-                
-                renderer.material.EnableKeyword("_NORMALMAP");
-                renderer.material.EnableKeyword("_OCCLUSIONMAP");
+        renderer.material.EnableKeyword("_NORMALMAP");
+        renderer.material.EnableKeyword("_OCCLUSIONMAP");
 
-                renderer.material.SetTexture("_BaseMap", splitTex);
-                renderer.material.SetTexture("_BumpMap", splitBeltNormal);
-                //renderer.material.SetFloat("_BumpScale", 2f);
-                renderer.material.SetTexture("_OcclusionMap", splitBeltAO);
-
-
-            }
-        }
+        renderer.material.SetTexture("_BaseMap", splitTex);
+        renderer.material.SetTexture("_BumpMap", splitBeltNormal);
+        //renderer.material.SetFloat("_BumpScale", 2f);
+        renderer.material.SetTexture("_OcclusionMap", splitBeltAO);
     }
-    private void LoadTextureToBoxLoader()
-    {                
+
+    public void LoadTextureToBoxLoader(GameObject obj)
+    {
         //need to convert to texture from sprite
-        Texture2D boxLoaderTex = TextureFromSprite(boxLoader);
 
-        foreach (GameObject obj in objects)
-        {
-            if (obj.name == "BoxLoader")
-            {
-                MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
+        MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
 
-                renderer.material.EnableKeyword("_NORMALMAP");
-                renderer.material.EnableKeyword("_OCCLUSIONMAP");
-                renderer.material.EnableKeyword("_METALLICSPECGLOSSMAP");
+        renderer.material.EnableKeyword("_NORMALMAP");
+        renderer.material.EnableKeyword("_OCCLUSIONMAP");
+        renderer.material.EnableKeyword("_METALLICSPECGLOSSMAP");
 
-                renderer.material.SetTexture("_BaseMap", boxLoaderTex);
-                renderer.material.SetTexture("_BumpMap", boxLoaderNormal);
-                // renderer.material.SetFloat("_BumpScale", 2f);
-                renderer.material.SetTexture("_OcclusionMap", boxLoaderARM);
-                renderer.material.SetTexture("_MetallicGlossMap", boxLoaderARM);
+        renderer.material.SetTexture("_BaseMap", boxLoaderTex);
+        renderer.material.SetTexture("_BumpMap", boxLoaderNormal);
+        // renderer.material.SetFloat("_BumpScale", 2f);
+        renderer.material.SetTexture("_OcclusionMap", boxLoaderARM);
+        renderer.material.SetTexture("_MetallicGlossMap", boxLoaderARM);
 
-                
 
-            }
-        }
     }
+
     public static Texture2D TextureFromSprite(Sprite sprite)
     {
 

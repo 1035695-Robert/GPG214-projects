@@ -20,5 +20,9 @@ public class EventManager
 
     public delegate IEnumerator ObjectPool();
     public static ObjectPool objectPool;
-   
+
+
+    public delegate void TextureLoad(GameObject targetItem);
+    public static TextureLoad ItemTextureLoad;
+
 }

@@ -328,7 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 1
-  movementSpeed: 2
+  movementSpeed: 10
 --- !u!1 &404034829
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,7 +1032,7 @@ GameObject:
   - component: {fileID: 850277060}
   - component: {fileID: 850277059}
   m_Layer: 0
-  m_Name: Spawnertest
+  m_Name: spawnFromTexture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1493,7 +1493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1508667022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2024,26 +2024,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SplitBelts
       objectReference: {fileID: 0}
-    - target: {fileID: 6769948601857862300, guid: f165fa5e127abdf43b762cc470cb6ed0, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286866496608672800, guid: f165fa5e127abdf43b762cc470cb6ed0, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8448754557628929061, guid: f165fa5e127abdf43b762cc470cb6ed0, type: 3}
-      propertyPath: angleToRotate
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 8448754557628929061, guid: f165fa5e127abdf43b762cc470cb6ed0, type: 3}
-      propertyPath: targetObjectName.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8448754557628929061, guid: f165fa5e127abdf43b762cc470cb6ed0, type: 3}
-      propertyPath: 'targetObjectName.Array.data[0]'
-      value: RedBox
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2189,16 +2169,16 @@ SceneRoots:
   - {fileID: 847006574}
   - {fileID: 1656757887}
   - {fileID: 1632630421686412816}
+  - {fileID: 1994001572}
   - {fileID: 1740854573}
   - {fileID: 534501178}
   - {fileID: 1181471380}
   - {fileID: 629741394}
   - {fileID: 404034833}
   - {fileID: 1742780305}
-  - {fileID: 1994001572}
   - {fileID: 1090294342}
   - {fileID: 930171431}
   - {fileID: 1384151426}
   - {fileID: 1508667023}
-  - {fileID: 1549439096}
   - {fileID: 850277060}
+  - {fileID: 1549439096}

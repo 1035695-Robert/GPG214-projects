@@ -12,7 +12,10 @@ public class BoxLoader : MonoBehaviour
 {
     BoxPoolManager boxPool;
     public float waitTime = 1f;
- 
+
+    RaycastHit hit;
+    float maxDistance = 4f;
+
     private void Start()
     {
         boxPool = BoxPoolManager.Instance;
@@ -29,8 +32,7 @@ public class BoxLoader : MonoBehaviour
 
     public void BoxDetected()
     {
-        RaycastHit hit;
-        float maxDistance = 2f;
+        
 
         if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
         {
@@ -47,9 +49,6 @@ public class BoxLoader : MonoBehaviour
 
         }
     }
-
-
-
     //void FixedUpdate()
     //{
     //    if (isWaiting == false)
@@ -57,7 +56,6 @@ public class BoxLoader : MonoBehaviour
     //        StartCoroutine(SpawnBoxObjectFromPool());
     //    }
     //}
-
 
     public IEnumerator SpawnBoxObjectFromPool()
     {

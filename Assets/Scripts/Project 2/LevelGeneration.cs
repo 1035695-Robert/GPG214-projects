@@ -22,6 +22,10 @@ public class LevelGeneration : MonoBehaviour
     {
         EventManager.generateLevel += GenerateLevel;
     }
+    private void OnDisable()
+    {
+       EventManager.generateLevel -= GenerateLevel;
+    }
     IEnumerator GenerateLevel()
     {
 
@@ -45,7 +49,8 @@ public class LevelGeneration : MonoBehaviour
                         Debug.Log("GREEN");
                         GameObject loader = objectToSpawn[0];
                         spawnPosition.y = 2f;
-                        ItemSpawn(spawnPosition, loader);
+                        GameObject target = ItemSpawn(spawnPosition, loader);
+                        target.transform.Rotate(0, 90, 0);
 
                         break;
 
@@ -68,12 +73,16 @@ public class LevelGeneration : MonoBehaviour
                 }
             }
         }
+        
         yield return null;
     }
 
     GameObject ItemSpawn(Vector3 spawnPosition, GameObject prefab)
     {
-        return Instantiate(prefab, spawnPosition, Quaternion.identity);
+       GameObject target = Instantiate(prefab, spawnPosition, Quaternion.identity);
+       target.name = prefab.name;
+       EventManager.ItemTextureLoad.Invoke(target);
+        return target;
     }
 
     Vector3 GridPlacement(int X, int Z)

@@ -26,6 +26,8 @@ public class BeltPlacer : MonoBehaviour
     {
         var finalposition = CalculateSnappedPosition(point);
         GameObject newBelt = Instantiate(conveyorBelt, finalposition, Quaternion.identity);
+        newBelt.name = conveyorBelt.name;
+        EventManager.ItemTextureLoad.Invoke(newBelt);
 
     }
 
