@@ -1,11 +1,17 @@
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BeltPlacer : MonoBehaviour
 {
 
     public GameObject conveyorBelt;
     [SerializeField] private float size = 2;
-
+    public CameraMovement cameraRotation;
+    private void Start()
+    {
+       
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
@@ -17,7 +23,6 @@ public class BeltPlacer : MonoBehaviour
             {
                 if (hitInfo.transform.name == "Void")
                     PlaceCubeNear(hitInfo.point);
-
             }
         }
     }
@@ -25,7 +30,8 @@ public class BeltPlacer : MonoBehaviour
     public void PlaceCubeNear(Vector3 point)
     {
         var finalposition = CalculateSnappedPosition(point);
-        GameObject newBelt = Instantiate(conveyorBelt, finalposition, Quaternion.identity);
+        var finalRotation = CalculateSnappedRotation();
+        GameObject newBelt = Instantiate(conveyorBelt, finalposition, finalRotation);
         newBelt.name = conveyorBelt.name;
         EventManager.ItemTextureLoad.Invoke(newBelt);
 
@@ -45,6 +51,15 @@ public class BeltPlacer : MonoBehaviour
 
         return result;
 
+    }
+    public Quaternion CalculateSnappedRotation()
+    {
+        float Y = Mathf.Round(cameraRotation.rotationY / 90f) * 90f;
+        Debug.Log(cameraRotation.rotationX);
+        Debug.Log(Y);
+        Quaternion rotationY = Quaternion.Euler(0, Y, 0f);
+
+        return rotationY;
     }
 
     private void OnDrawGizmos()

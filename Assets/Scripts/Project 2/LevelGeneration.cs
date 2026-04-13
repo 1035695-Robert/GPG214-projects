@@ -15,6 +15,8 @@ public class LevelGeneration : MonoBehaviour
 
     private void Awake()
     {
+
+        // load AssetBundle
         GameObject[] loadObjects = Resources.LoadAll<GameObject>("Prefabs/LevelAssets");
         objectToSpawn = loadObjects.ToList();
     }

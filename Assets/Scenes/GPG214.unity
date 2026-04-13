@@ -329,6 +329,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 1
   movementSpeed: 10
+  rotationY: 0
+  rotationX: 0
 --- !u!1 &404034829
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,6 +585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   conveyorBelt: {fileID: 6769948601857862300, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
   size: 2
+  cameraRotation: {fileID: 330585548}
 --- !u!4 &534501178
 Transform:
   m_ObjectHideFlags: 0
