@@ -21,6 +21,8 @@ public class EventManager
     public delegate IEnumerator ObjectPool();
     public static ObjectPool objectPool;
 
+    public delegate void PlayerSelection(PlayerID player);
+    public static PlayerSelection setPlayer;
 
     public delegate void TextureLoad(GameObject targetItem);
     public static TextureLoad ItemTextureLoad;

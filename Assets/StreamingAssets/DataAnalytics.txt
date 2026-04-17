@@ -1,0 +1,4 @@
+
+player2
+	took 3.004405 
+	Played for 2.16 seconds after Selection

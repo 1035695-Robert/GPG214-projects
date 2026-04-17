@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator Start()
     {
+       
         yield return EventManager.generateLevel.Invoke();
         //load textures
         yield return EventManager.objectPool.Invoke();
