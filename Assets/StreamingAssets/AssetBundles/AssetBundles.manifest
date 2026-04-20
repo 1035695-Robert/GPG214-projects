@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
 UnityVersion: 6000.0.62f1
-CRC: 3965600229
+CRC: 2846501712
 HashAppended: 0
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: boxbundle
+      Name: dlc_bundle
       Dependencies: {}

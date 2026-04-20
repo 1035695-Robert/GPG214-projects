@@ -626,7 +626,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &629741389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1057,6 +1057,7 @@ MonoBehaviour:
   objectToSpawn:
   - {fileID: 6769948601857862300, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
   cellSize: 2
+  bundle: {fileID: 0}
 --- !u!4 &850277060
 Transform:
   m_ObjectHideFlags: 0
@@ -1201,9 +1202,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ba653c25b63844dae124c66f39f778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fileName: dlc_bundle
   combinePath: 
-  boxPrefabs: []
-  boxBundle: {fileID: 0}
+  assetPath: []
+  dlcBundle: {fileID: 0}
 --- !u!4 &1181471380
 Transform:
   m_ObjectHideFlags: 0
@@ -1863,7 +1865,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a058f68be63260e4583c2ce2b01ffe6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textureName: 
   texture: {fileID: 0}
 --- !u!23 &1742780307
 MeshRenderer:

@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Threading;
-using Unity.Android.Types;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -10,12 +8,17 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator Start()
     {
-       
+       //check if theres assetbundle
+     
+
         yield return EventManager.generateLevel.Invoke();
+       
         //load textures
         yield return EventManager.objectPool.Invoke();
         
+        //
         yield return StartCoroutine(TimeTracker());
+        yield break;
     }
 
     IEnumerator TimeTracker()

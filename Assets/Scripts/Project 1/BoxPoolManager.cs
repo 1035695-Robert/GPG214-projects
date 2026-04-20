@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using Unity.Android.Gradle;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class BoxPoolManager : MonoBehaviour
 {
     #region Singleton
     public static BoxPoolManager Instance;
-
+    AssetBundles bundle;
     private void Awake()
     {
 
@@ -26,7 +27,7 @@ public class BoxPoolManager : MonoBehaviour
         //return imediately
         Instance = this;
 
-
+        bundle = GameObject.Find("assetBundle").GetComponent<AssetBundles>();
 
     }
     private void OnEnable()
@@ -38,6 +39,7 @@ public class BoxPoolManager : MonoBehaviour
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
     public Storage package = new Storage();
+
     TextureLoadAsync loadTexture;
 
 
@@ -67,20 +69,22 @@ public class BoxPoolManager : MonoBehaviour
             var request = Resources.LoadAsync<GameObject>("Prefabs/" + item.boxName);
             boxPrefab = request.asset as GameObject;
 
-            //if (boxPrefab == null)
-            //{
-            //    AssetBundles bundles = GameObject.Find("assetBundle").GetComponent<AssetBundles>();
-
-            //    Debug.Log("try to create: " + item.boxName);
-            //    boxPrefab = bundles.boxPrefabs.SingleOrDefault(p => p.name == item.boxName);
             if (boxPrefab == null)
             {
-                yield break;
-               // Debug.LogError("prefab can not be found");
-            }
-            //}
+                foreach (string path in bundle.assetPath)
+                {
+                    Debug.Log(path);
+                    if (path.Contains("box"))
+                    {
+                        boxPrefab = bundle.dlcBundle.LoadAsset<GameObject>(path);
 
-
+                        if (boxPrefab != null)
+                        {
+                           
+                        }
+                    }
+                }
+            } 
             yield return StartCoroutine(loadTexture.FilePath(item.boxColor));
 
 
@@ -119,9 +123,6 @@ public class BoxPoolManager : MonoBehaviour
         }
 
     }
-
-
-
     public GameObject SpawnFromPool(string itemID, Vector3 position, Quaternion rotation)
     {// this is a factory pattern
 

@@ -1,4 +1,40 @@
+total times Player Selected
+	Player1: 1
+	Player1: 2
+	Player1: 1
 
-player2
-	took 3.004405 
+----------
+player1: 
+April 20, 2026
+	time taken to select Player 7.39
+	Played for 1.87 seconds after Selection
+----------
+player2: 
+April 20, 2026
+	time taken to select Player 0.78
+	Played for 1.50 seconds after Selection
+----------
+player2: 
+April 20, 2026
+	time taken to select Player 0.55
+	Played for 2.03 seconds after Selection
+----------
+player3: 
+April 20, 2026
+	time taken to select Player 2.05
+	Played for 3.16 seconds after Selection
+----------
+0: 
+April 20, 2026
+	time taken to select Player 0.00
+	Played for 13.07 seconds after Selection
+----------
+0: 
+April 20, 2026
+	time taken to select Player 0.00
+	Played for 9.90 seconds after Selection
+----------
+0: 
+April 20, 2026
+	time taken to select Player 0.00
 	Played for 2.16 seconds after Selection

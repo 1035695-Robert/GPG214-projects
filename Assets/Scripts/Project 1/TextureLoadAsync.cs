@@ -1,5 +1,6 @@
 using System.Collections;
 using System.IO;
+using Unity.Android.Gradle;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Rendering;
@@ -7,25 +8,29 @@ using UnityEngine.UIElements;
 
 public class TextureLoadAsync : MonoBehaviour
 {
-    [SerializeField] private string textureName;
     [SerializeField] private Texture texture;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    AssetBundles bundle;
+    private void Awake()
+    {
+        bundle = GameObject.Find("assetBundle").GetComponent<AssetBundles>();
+    
+    }
     public IEnumerator FilePath(string boxColor)
     {
-        if (boxColor != null)
+        if (boxColor == null)
         {
-            textureName = boxColor;
+            Debug.LogError("no Texture"); 
         }
-        else
-        {
-            Debug.LogError("no Texture");
-        }
+  
 
-        string filePath = Path.Combine(Application.streamingAssetsPath, "Texture/" + textureName + ".png");
+        string filePath = Path.Combine(Application.streamingAssetsPath, "Texture/" + boxColor + ".png");
+
         if (!File.Exists(filePath))
         {
-            texture = null;
-            yield return null;
+            filePath = bundle.combinePath;
+            
+         
         }
 
         yield return StartCoroutine(LoadTextureFromFile(filePath));
@@ -35,9 +40,6 @@ public class TextureLoadAsync : MonoBehaviour
     {
 
         UnityWebRequest imageRequest = UnityWebRequest.Get(filePath);
-
-
-
 
         AsyncOperation downloadOperation = imageRequest.SendWebRequest();
 
@@ -70,28 +72,9 @@ public class TextureLoadAsync : MonoBehaviour
         //best practice as it frees up memory
         yield return null;
     }
-
-    //IEnumerator LoadTextureFromFile(string filePath)
-    //    string filePath = Path.Combine(path);
-
-    //    if (File.Exists(filePath))
-    //    {
-    //        byte[] imageData = File.ReadAllBytes(filePath);
-
-    //        Texture2D texture = new Texture2D(2, 2);
-    //        texture.LoadImage(imageData);
-
-    //        GetComponent<Renderer>().material.mainTexture = texture;
-    //        Debug.Log("texture is found");
-    //        yield return null;
-    //    }
-    //    else
-    //    { 
-    //        GetComponent<Renderer>().material.color = Color.magenta;
-    //        yield break;
-    //    }
     public Texture ReturnTexture()
     {
+       
         return texture;
     }
 }

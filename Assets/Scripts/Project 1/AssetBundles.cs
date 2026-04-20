@@ -1,21 +1,25 @@
+using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
+using Unity.Android.Gradle;
 using UnityEngine;
-using System;
+using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 public class AssetBundles : MonoBehaviour
 {
     string folderPath = "AssetBundles";
-    string fileName = "boxbundle";
+    public string fileName = "dlc_bundle";
     public string combinePath;
 
-    public GameObject[] boxPrefabs;
+    public string[] assetPath;
 
-    public AssetBundle boxBundle;
+    public AssetBundle dlcBundle;
 
     void Awake()
     {
+
         LoadAssetBundle();
     }
     private void LoadAssetBundle()
@@ -27,16 +31,15 @@ public class AssetBundles : MonoBehaviour
             if (File.Exists(combinePath))
             {
                 var request = AssetBundle.LoadFromFileAsync(combinePath);
-                boxBundle = request.assetBundle;
+                dlcBundle = request.assetBundle;
 
-                if (boxBundle == null)
+                if (dlcBundle == null)
                 {
                     Debug.LogError("failed to load AssetBundle");
                 }
 
-                boxPrefabs = boxBundle.LoadAllAssets<GameObject>();
-                Debug.Log(boxPrefabs.ToString());
-
+                 assetPath = dlcBundle.GetAllAssetNames();
+           
             }
         }
         catch (FileNotFoundException e)
@@ -49,9 +52,9 @@ public class AssetBundles : MonoBehaviour
         }
         finally
         {
-            if (boxBundle != null)
+            if (dlcBundle != null)
             {
-                boxBundle.Unload(false);
+               //dlcBundle.Unload(false);
                 Debug.Log("bundle memory cleaned up.");
 
             }
