@@ -2,6 +2,7 @@ using System.IO;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class VoidScore : MonoBehaviour
 {
@@ -12,7 +13,15 @@ public class VoidScore : MonoBehaviour
     private string updatePoints;
 
     [SerializeField ]private TextMeshProUGUI scoreText;
-   
+
+    private int playerValue;
+    private Players playerData = new Players();
+
+
+    private void OnEnable()
+    {
+        EventManager.setPlayer += SetPlayerScore;
+    }
     private void Start()
     {
         GetScoreFileContent();
@@ -87,4 +96,26 @@ public class VoidScore : MonoBehaviour
     { 
        scoreText.text = "Box Score: " + points;
     }
+
+    void SetPlayerScore(PlayerID id)
+    {
+        playerValue = (int)id;
+        var playerSelected = playerData.Data[playerValue];
+        if (playerSelected != null)
+        {
+            string score = playerSelected.PlayerScore.ToString();
+
+            DisplayScore(score);
+
+            currentScoreData = new Score(score);
+
+            WriteData(currentScoreData.ReturnScoreSaveData());
+            GetScoreFileContent();
+        }
+    }
+    //private void OnApplicationQuit()
+    //{
+    //    var playerSelected = playerData.Data[playerValue];
+    //    playerSelected.PlayerScore = currentScoreData
+    //} find a way to update score to data player data
 }

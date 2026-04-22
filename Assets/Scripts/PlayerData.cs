@@ -5,24 +5,19 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public enum level
-{
-    None = 0,
-    level1 = 1,
-    level2 = 2,
-    level3 = 3,
-}
+
 [Serializable]
 public class PlayerInfo
 {
     public PlayerID Id; //will be saved as an int
-    public Enum CurrentLevel;
+    //public Enum CurrentLevel;
     public int PlayerScore;
+    public bool hasDLC;
 }
 [Serializable]
 public class Players
 {
-    public List<PlayerInfo> Data;
+    public List<PlayerInfo> Data = new List<PlayerInfo>();
 }
 
 public class PlayerData : MonoBehaviour
@@ -35,10 +30,18 @@ public class PlayerData : MonoBehaviour
 
     private void Start()
     {
-        //  SavePlayerData();
-       // LoadSpecificPlayer();
+       
+        // LoadSpecificPlayer();
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Debug.Log("saving?");
+            SavePlayerData();
+        }
+    }
     public void OnEnable()
     {
         EventManager.setPlayer += PlayerSelect;
@@ -55,17 +58,24 @@ public class PlayerData : MonoBehaviour
     }
     public void SavePlayerData()
     {
-        filePath = Path.Combine(Application.persistentDataPath, "playerData.json");
-        string jsonFile = JsonUtility.ToJson(playerInfo);
-
-        Debug.Log(filePath);
-
-        File.WriteAllText(filePath, jsonFile);
+        filePath = Application.streamingAssetsPath + "/PlayerData.json";
+        using (StreamWriter sw = new StreamWriter(filePath, append: true))
+        {
+            foreach(var player in playerInfo.Data)
+            {
+                string line = JsonUtility.ToJson(player); 
+                sw.WriteLine(line);
+            }
+        }
+        
+        string jsonFile = JsonUtility.ToJson(playerInfo, true);
+             
+        File.WriteAllText(filePath, jsonFile); 
 
     }
     public void LoadSpecificPlayer()
     {
-        filePath = Path.Combine(Application.persistentDataPath, "playerData.json");
+        filePath = Application.streamingAssetsPath + "/playerData.json";
 
         if (File.Exists(filePath))
         {
@@ -78,6 +88,9 @@ public class PlayerData : MonoBehaviour
             Debug.Log(selectedPlayer.Id + "score" + selectedPlayer.PlayerScore);
 
         }
+        else
+            Debug.LogError("missing");
+
         //return null;
 
     }

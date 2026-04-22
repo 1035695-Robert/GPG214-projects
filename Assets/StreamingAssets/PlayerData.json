@@ -1,0 +1,19 @@
+{
+    "Data": [
+        {
+            "Id": 0,
+            "PlayerScore": 0,
+            "hasDLC": false
+        },
+        {
+            "Id": 1,
+            "PlayerScore": 12,
+            "hasDLC": true
+        },
+        {
+            "Id": 2,
+            "PlayerScore": 13,
+            "hasDLC": true
+        }
+    ]
+}

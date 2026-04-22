@@ -1,3 +1,4 @@
+using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -5,11 +6,21 @@ public class BeltPlacer : MonoBehaviour
 {
 
     public GameObject conveyorBelt;
+    public GameObject markers;
     [SerializeField] private float size = 2;
     public CameraMovement cameraRotation;
     private void Start()
     {
-       
+        markers = Resources.Load<GameObject>("marker");
+        for (float x = 0; x < 32; x += size)
+        {
+            for (float z = 0; z < 32; z += size)
+            {
+                var point = CalculateSnappedPosition(new Vector3(x, 0f, z));
+                Instantiate(markers, point, Quaternion.identity,this.transform);
+
+            }
+        }
     }
     private void Update()
     {
@@ -64,14 +75,7 @@ public class BeltPlacer : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        for (float x = 0; x < 40; x += size)
-        {
-            for (float z = 0; z < 40; z += size)
-            {
-                var point = CalculateSnappedPosition(new Vector3(x, 0f, z));
-                Gizmos.DrawSphere(point, 0.1f);
-            }
-        }
+
     }
 }
 

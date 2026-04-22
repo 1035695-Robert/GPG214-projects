@@ -25,7 +25,7 @@ public class LevelGeneration : MonoBehaviour
     }
     private void Start()
     {
-
+      
 
         GameObject[] loadObjects = Resources.LoadAll<GameObject>("Prefabs/LevelAssets");
         objectToSpawn = loadObjects.ToList();

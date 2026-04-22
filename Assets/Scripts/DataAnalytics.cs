@@ -10,16 +10,22 @@ public class DataAnalytics : MonoBehaviour
 {
     public string playerID;
     public List<string> playerList = new List<string>();
+    public string textFilePath;
     public string filePath;
+
+    public Players playerInfo = new Players();
     private string textFile = "DataAnalytics.txt";
+
+    private int IDvalue;
     public float selectionTime;
-    public bool isdead;
+
 
 
     string horizontalLine = new string("'-',10");
     private void Start()
     {
-        filePath = Path.Combine(Application.streamingAssetsPath, textFile);
+        filePath = Application.streamingAssetsPath + "/PlayerData.json";
+        textFilePath = Path.Combine(Application.streamingAssetsPath, textFile);
     }
     public void OnEnable()
     {
@@ -33,7 +39,16 @@ public class DataAnalytics : MonoBehaviour
     void SetPlayerID(PlayerID ID)
     {
 
+        IDvalue = (int)ID;
         playerID = ID.ToString();
+        Debug.Log(playerID);
+        Debug.Log(IDvalue + " " + playerID);
+
+        string playerRead = File.ReadAllText(filePath);
+        playerInfo = JsonUtility.FromJson<Players>(playerRead);
+         var selectedPlayer = playerInfo.Data[(int)ID];
+        Debug.Log(selectedPlayer.PlayerScore + selectedPlayer.hasDLC.ToString());
+
 
         selectionTime = Time.time;
 
@@ -47,18 +62,23 @@ public class DataAnalytics : MonoBehaviour
         {
 
             float playDuration = Time.time;
-            StreamWriter sw = File.AppendText(filePath);     // appendText adds new line of text in file.
+            var selectedPlayer = playerInfo.Data[IDvalue];
+            StreamWriter sw = File.AppendText(textFilePath);
+            sw.WriteLine("<html><body>");
+                // appendText adds new line of text in file.
+            sw.WriteLine("<detail>");
             sw.WriteLine(                                   // each time game ends it will log a new block of text based on GamePlay
                 new string('-', 10) +
-                "\n" + playerID + ": "
-                + "\n" + DateTime.Now.ToString("MMMM dd, yyyy") +
+                "\n "   + playerID + ":" +
+                "\n" + DateTime.Now.ToString("MMMM dd, yyyy") +
+                "\n\tCurrent Score: " + selectedPlayer.PlayerScore.ToString() +
+                "\n\tDLC:" + selectedPlayer.hasDLC.ToString() +
+                
                 "\n\ttime taken to select Player " + selectionTime.ToString("F2") +
                 "\n\tPlayed for " + (playDuration - selectionTime).ToString("F2") + " seconds after Selection"
-                //add Score
                 );
-
-
-
+            sw.WriteLine("</detail>");
+            sw.WriteLine("</body></html>");
             sw.Flush();
             sw.Close();
             PlayerCount();
@@ -68,24 +88,24 @@ public class DataAnalytics : MonoBehaviour
     }
     public void PlayerCount()
     {
-        string[] lineToEdit = File.ReadAllLines(filePath);
+        string[] lineToEdit = File.ReadAllLines(textFilePath);
 
-        int count = File.ReadLines(filePath).Count(line => line.Contains(playerID));
+        int count = File.ReadLines(textFilePath).Count(line => line.Contains(playerID));
 
         switch (playerID)
         {
             case "player1":
                 lineToEdit[1] = "\tPlayer1: " + count;
-                File.WriteAllLines(filePath, lineToEdit);
+                File.WriteAllLines(textFilePath, lineToEdit);
                 Debug.Log("");
                 break;
             case "player2":
-                lineToEdit[2] = "\tPlayer1: " + count;
-                File.WriteAllLines(filePath, lineToEdit);
+                lineToEdit[2] = "\tPlayer2: " + count;
+                File.WriteAllLines(textFilePath, lineToEdit);
                 break;
             case "player3":
-                lineToEdit[3] = "\tPlayer1: " + count;
-                File.WriteAllLines(filePath, lineToEdit);
+                lineToEdit[3] = "\tPlayer3: " + count;
+                File.WriteAllLines(textFilePath, lineToEdit);
                 break;
 
         }

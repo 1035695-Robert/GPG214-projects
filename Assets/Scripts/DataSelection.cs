@@ -2,15 +2,24 @@ using UnityEngine;
 
 public enum PlayerID
 {
-    None = 0,
-    player1 = 1,
-    player2 = 2,
-    player3 = 3,
+   
+    player1 = 0,
+    player2 = 1,
+    player3 = 2,
 }
 
-public class PlayerSelection : MonoBehaviour
+public enum LevelID
+{
+    
+    level1 = 0,
+    level2 = 1,
+    level3 = 2,
+}
+
+public class DataSelection : MonoBehaviour
 {
     public PlayerID selectedPlayer;
+    public LevelID selectedLevel;
     GameObject buttonSelection;
 
     public void Start()
@@ -22,5 +31,9 @@ public class PlayerSelection : MonoBehaviour
         selectedPlayer = (PlayerID)idValue;
         buttonSelection.SetActive(false);
         EventManager.setPlayer.Invoke(selectedPlayer);
+    }
+    public void levelSelected()
+    {
+       
     }
 }

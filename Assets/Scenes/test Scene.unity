@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedPlayer: 0
+  selectedLevel: 0
 --- !u!4 &201198034
 Transform:
   m_ObjectHideFlags: 0
@@ -1193,7 +1194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a058f68be63260e4583c2ce2b01ffe6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textureName: 
   texture: {fileID: 0}
 --- !u!1 &1625666469
 GameObject:
@@ -1322,6 +1322,7 @@ MonoBehaviour:
   objectToSpawn:
   - {fileID: 6769948601857862300, guid: 40253449bc0829449bb47a6a00a37abb, type: 3}
   cellSize: 2
+  bundle: {fileID: 0}
 --- !u!1 &1911775033
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,7 +1355,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: 0
   playerInfo:
-    Data: []
+    Data:
+    - Id: 0
+      PlayerScore: 0
+      hasDLC: 0
+    - Id: 1
+      PlayerScore: 12
+      hasDLC: 1
+    - Id: 2
+      PlayerScore: 13
+      hasDLC: 1
   filePath: 
 --- !u!4 &1911775035
 Transform:
@@ -1384,7 +1394,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 0
+  playerList: []
+  textFilePath: 
   filePath: 
+  playerInfo:
+    Data: []
   selectionTime: 0
 --- !u!1 &2040726108
 GameObject:
