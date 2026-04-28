@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,4 +28,15 @@ public class EventManager
     public delegate void TextureLoad(GameObject targetItem);
     public static TextureLoad ItemTextureLoad;
 
+    public delegate void LevelSelection(LevelID level);
+    public static LevelSelection setLevel;
+
+    public delegate void DlcCheck(bool hasDlc);
+    public static DlcCheck dlcCheck;
+
+    public delegate void ApplyDlc();
+    public static ApplyDlc applyDlc;
+
 }
+
+

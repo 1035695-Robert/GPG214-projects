@@ -1,7 +1,7 @@
 total times Player Selected
-	Player1: 8
-	Player2: 6
-	Player3: 2
+	Player1: 12
+	Player2: 14
+	Player3: 3
 
 ----------
 player1: 
@@ -24,4 +24,183 @@ April 20, 2026
 	time taken to select Player 2.05
 	Played for 3.16 seconds after Selection
 ----------
-
+ player1:
+April 28, 2026
+	Current Score: 0
+	DLC:False
+	time taken to select Player 66.40
+	Played for 5.04 seconds after Selection
+----------
+ player2:
+April 28, 2026
+	Current Score: 12
+	DLC:True
+	time taken to select Player 4.20
+	Played for 4.49 seconds after Selection
+----------
+ player1:
+April 28, 2026
+	Current Score: 0
+	DLC:False
+	time taken to select Player 13.63
+	Played for 11.12 seconds after Selection
+----------
+ player2:
+April 28, 2026
+	Current Score: 12
+	DLC:True
+	time taken to select Player 0.38
+	Played for 16.47 seconds after Selection
+----------
+ player2:
+April 28, 2026
+	Current Score: 12
+	DLC:True
+	time taken to select Player 3.43
+	Played for 25.20 seconds after Selection
+----------
+ player2:
+April 28, 2026
+	Current Score: 12
+	DLC:True
+	time taken to select Player 1.49
+	Played for 59.77 seconds after Selection
+----------
+ player2:
+April 28, 2026
+	Current Score: 12
+	DLC:True
+	time taken to select Player 5.01
+	Played for 10.71 seconds after Selection
+----------
+ player1:
+April 28, 2026
+	Current Score: 0
+	DLC:False
+	time taken to select Player 240.04
+	Played for 4.51 seconds after Selection
+----------
+ player2:
+April 28, 2026
+	Current Score: 12
+	DLC:True
+	time taken to select Player 1.65
+	Played for 0.00 seconds after Selection
+----------
+ player2:
+April 28, 2026
+	Current Score: 12
+	DLC:True
+	time taken to select Player 3.09
+	Played for 7.52 seconds after Selection
+----------
+ player1:
+April 28, 2026
+	Current Score: 0
+	DLC:False
+	time taken to select Player 5.93
+	Played for 3.55 seconds after Selection
+----------
+ player1:
+April 28, 2026
+	Current Score: 0
+	DLC:False
+	time taken to select Player 3.56
+	Played for 7.67 seconds after Selection
+----------
+ player1:
+April 28, 2026
+	Current Score: 0
+	DLC:False
+	time taken to select Player 4.03
+	Played for 6.18 seconds after Selection
+----------
+ player1:
+April 28, 2026
+	Current Score: 0
+	DLC:False
+	time taken to select Player 7.04
+	Played for 13.85 seconds after Selection
+----------
+ player1:
+April 28, 2026
+	Current Score: 0
+	DLC:False
+	time taken to select Player 10.85
+	Played for 6.23 seconds after Selection
+----------
+ player1:
+April 28, 2026
+	Current Score: 0
+	DLC:False
+	time taken to select Player 17.85
+	Played for 5.50 seconds after Selection
+----------
+ player1:
+April 28, 2026
+	Current Score: 0
+	DLC:False
+	time taken to select Player 9.72
+	Played for 1.62 seconds after Selection
+----------
+ player2:
+April 28, 2026
+	Current Score: 12
+	DLC:True
+	time taken to select Player 1.61
+	Played for 3.02 seconds after Selection
+----------
+ player2:
+April 28, 2026
+	Current Score: 12
+	DLC:True
+	time taken to select Player 23.07
+	Played for 0.00 seconds after Selection
+----------
+ player2:
+April 28, 2026
+	Current Score: 12
+	DLC:True
+	level selected: level2
+	time taken to select Player 3.62
+	Played for 4.82 seconds after Selection
+----------
+ player1:
+April 28, 2026
+	Current Score: 0
+	DLC:False
+	Level Selected: level1
+	Time to Select Player 4.36
+	Played for 26.91 seconds after Selection
+----------
+ player3:
+April 28, 2026
+	Current Score: 13
+	DLC:True
+	Level Selected: level2
+	Time to Select Player 1.01
+	Played for 11.76 seconds after Selection
+----------
+player2:
+April 28, 2026
+	Current Score: 12
+	DLC:True
+	Level Selected: level2
+	Time to Select Player 21.37
+	Played for 2.72 seconds after Selection
+----------
+player2:
+April 28, 2026
+	Current Score: 12
+	DLC:True
+	Level Selected: level3
+	Time to Select Player 56.16
+	Played for 12.21 seconds after Selection
+----------
+player3:
+April 28, 2026
+	Current Score: 13
+	DLC:True
+	Level Selected: level2
+	Time to Select Player 2.27
+	Played for 59.24 seconds after Selection

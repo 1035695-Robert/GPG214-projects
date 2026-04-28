@@ -24,6 +24,7 @@ public class AssetBundles : MonoBehaviour
     }
     private void LoadAssetBundle()
     {
+       //if player has Dlc Run this
         try
         {
             combinePath = Path.Combine(Application.streamingAssetsPath, folderPath, fileName);

@@ -5,19 +5,18 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-
 [Serializable]
 public class PlayerInfo
 {
     public PlayerID Id; //will be saved as an int
-    //public Enum CurrentLevel;
+   
     public int PlayerScore;
     public bool hasDLC;
 }
 [Serializable]
 public class Players
 {
-    public List<PlayerInfo> Data = new List<PlayerInfo>();
+    public List<PlayerInfo> Data;
 }
 
 public class PlayerData : MonoBehaviour
@@ -30,18 +29,10 @@ public class PlayerData : MonoBehaviour
 
     private void Start()
     {
-       
-        // LoadSpecificPlayer();
+        //  SavePlayerData();
+       // LoadSpecificPlayer();
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            Debug.Log("saving?");
-            SavePlayerData();
-        }
-    }
     public void OnEnable()
     {
         EventManager.setPlayer += PlayerSelect;
@@ -58,24 +49,17 @@ public class PlayerData : MonoBehaviour
     }
     public void SavePlayerData()
     {
-        filePath = Application.streamingAssetsPath + "/PlayerData.json";
-        using (StreamWriter sw = new StreamWriter(filePath, append: true))
-        {
-            foreach(var player in playerInfo.Data)
-            {
-                string line = JsonUtility.ToJson(player); 
-                sw.WriteLine(line);
-            }
-        }
-        
-        string jsonFile = JsonUtility.ToJson(playerInfo, true);
-             
-        File.WriteAllText(filePath, jsonFile); 
+        filePath = Path.Combine(Application.streamingAssetsPath, "playerData.json");
+        string jsonFile = JsonUtility.ToJson(playerInfo);
+
+        Debug.Log(filePath);
+
+        File.WriteAllText(filePath, jsonFile);
 
     }
     public void LoadSpecificPlayer()
     {
-        filePath = Application.streamingAssetsPath + "/playerData.json";
+        filePath = Path.Combine(Application.streamingAssetsPath, "playerData.json");
 
         if (File.Exists(filePath))
         {
@@ -83,14 +67,15 @@ public class PlayerData : MonoBehaviour
             Debug.Log(playerFileData);
 
             playerInfo = JsonUtility.FromJson<Players>(playerFileData);
+            
             ////return the first player that matches the enum.
             PlayerInfo selectedPlayer = playerInfo.Data.FirstOrDefault(i => i.Id == player);
+            EventManager.dlcCheck.Invoke(selectedPlayer.hasDLC);
             Debug.Log(selectedPlayer.Id + "score" + selectedPlayer.PlayerScore);
 
         }
         else
-            Debug.LogError("missing");
-
+            Debug.Log("missing path");
         //return null;
 
     }

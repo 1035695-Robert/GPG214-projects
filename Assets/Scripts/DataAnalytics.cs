@@ -16,8 +16,10 @@ public class DataAnalytics : MonoBehaviour
     public Players playerInfo = new Players();
     private string textFile = "DataAnalytics.txt";
 
-    private int IDvalue;
+    private int playerIDvalue;
     public float selectionTime;
+
+    private LevelID levelIDValue;
 
 
 
@@ -26,23 +28,25 @@ public class DataAnalytics : MonoBehaviour
     {
         filePath = Application.streamingAssetsPath + "/PlayerData.json";
         textFilePath = Path.Combine(Application.streamingAssetsPath, textFile);
+        DontDestroyOnLoad(this.gameObject);
     }
     public void OnEnable()
     {
         EventManager.setPlayer += SetPlayerID;
+        EventManager.setLevel += SetLevelID;
     }
     public void OnDisable()
     {
         EventManager.setPlayer += SetPlayerID;
-
+        EventManager.setLevel -= SetLevelID;
     }
     void SetPlayerID(PlayerID ID)
     {
 
-        IDvalue = (int)ID;
+        playerIDvalue = (int)ID;
         playerID = ID.ToString();
         Debug.Log(playerID);
-        Debug.Log(IDvalue + " " + playerID);
+        Debug.Log(playerIDvalue + " " + playerID);
 
         string playerRead = File.ReadAllText(filePath);
         playerInfo = JsonUtility.FromJson<Players>(playerRead);
@@ -51,8 +55,11 @@ public class DataAnalytics : MonoBehaviour
 
 
         selectionTime = Time.time;
+    }
 
-
+    public void SetLevelID( LevelID levelId)
+    {
+        levelIDValue = levelId; 
     }
 
 
@@ -62,23 +69,21 @@ public class DataAnalytics : MonoBehaviour
         {
 
             float playDuration = Time.time;
-            var selectedPlayer = playerInfo.Data[IDvalue];
+            var selectedPlayer = playerInfo.Data[playerIDvalue];
             StreamWriter sw = File.AppendText(textFilePath);
-            sw.WriteLine("<html><body>");
+           
                 // appendText adds new line of text in file.
-            sw.WriteLine("<detail>");
             sw.WriteLine(                                   // each time game ends it will log a new block of text based on GamePlay
                 new string('-', 10) +
-                "\n "   + playerID + ":" +
+                "\n"   + playerID + ":" +
                 "\n" + DateTime.Now.ToString("MMMM dd, yyyy") +
                 "\n\tCurrent Score: " + selectedPlayer.PlayerScore.ToString() +
                 "\n\tDLC:" + selectedPlayer.hasDLC.ToString() +
-                
-                "\n\ttime taken to select Player " + selectionTime.ToString("F2") +
+                "\n\tLevel Selected: " + levelIDValue + 
+                "\n\tTime to Select Player " + selectionTime.ToString("F2") +
                 "\n\tPlayed for " + (playDuration - selectionTime).ToString("F2") + " seconds after Selection"
                 );
-            sw.WriteLine("</detail>");
-            sw.WriteLine("</body></html>");
+ 
             sw.Flush();
             sw.Close();
             PlayerCount();
