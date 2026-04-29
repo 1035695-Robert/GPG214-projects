@@ -88,6 +88,7 @@ public class LevelGeneration : MonoBehaviour
         if (selectedLevelMap == null) Debug.LogError("no map selected");
         else
             Debug.Log(selectedLevelMap);
+
             for (int x = 0; x < selectedLevelMap.height; x++)
             {
                 for (int z = 0; z < selectedLevelMap.width; z++)

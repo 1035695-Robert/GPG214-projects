@@ -37,6 +37,9 @@ public class EventManager
     public delegate void ApplyDlc();
     public static ApplyDlc applyDlc;
 
+    public delegate IEnumerator StartGameManager();
+    public static StartGameManager startGameManager;
+
 }
 
 

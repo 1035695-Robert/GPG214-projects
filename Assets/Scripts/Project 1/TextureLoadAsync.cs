@@ -10,17 +10,12 @@ public class TextureLoadAsync : MonoBehaviour
 {
     [SerializeField] private Texture texture;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    AssetBundles bundle;
-    private void Awake()
-    {
-        bundle = GameObject.Find("assetBundle").GetComponent<AssetBundles>();
     
-    }
     public IEnumerator FilePath(string boxColor)
     {
         if (boxColor == null)
         {
-            Debug.LogError("no Texture"); 
+            Debug.LogError("no Texture" ); 
         }
   
 
@@ -28,7 +23,7 @@ public class TextureLoadAsync : MonoBehaviour
 
         if (!File.Exists(filePath))
         {
-            filePath = bundle.combinePath;
+            Debug.LogError("File Path Missing for texture" + boxColor);
             
          
         }

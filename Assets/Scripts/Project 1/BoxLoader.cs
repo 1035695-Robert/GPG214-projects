@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,13 +9,15 @@ using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 using UnityEngine.VFX;
 
+
+
 public class BoxLoader : MonoBehaviour
 {
     BoxPoolManager boxPool;
     public float waitTime = 1f;
 
     RaycastHit hit;
-    RaycastHit[] hits = new RaycastHit[10];
+    
     float maxDistance = 4f;
 
 
@@ -34,10 +37,6 @@ public class BoxLoader : MonoBehaviour
 
     public void BoxDetected()
     {
-        //int count = Physics.RaycastNonAlloc(transform.position, transform.forward, hits, maxDistance)
-
-
-
         if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
         {
             Debug.DrawRay(transform.position, transform.forward * maxDistance, Color.red);
@@ -50,7 +49,6 @@ public class BoxLoader : MonoBehaviour
         {
             Debug.Log("no boxes found");
             StartCoroutine(SpawnBoxObjectFromPool());
-
         }
     }
 

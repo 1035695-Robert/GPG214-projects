@@ -4,30 +4,34 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    //int waittime = 2;   
+    int waittime = 2;
 
-    //public IEnumerator Start()
-    //{
-    //   //check if theres assetbundle
-     
+    private void OnEnable()
+    {
+        EventManager.startGameManager += StartGame;
+    }
+    private void OnDisable()
+    {
+       EventManager.startGameManager -= StartGame;
+    }
+    public IEnumerator StartGame()
+    {
 
-    //   // yield return EventManager.generateLevel.Invoke();
-       
-    //    //load textures
-    //    yield return EventManager.objectPool.Invoke();
-        
-    //    //
-    //    yield return StartCoroutine(TimeTracker());
-    //    yield break;
-    //}
+        //    //load textures
+        yield return EventManager.objectPool.Invoke();
 
-    //IEnumerator TimeTracker()
-    //{
-    //    while (true)
-    //    {
-    //        EventManager.boxDetection.Invoke();
-    //        yield return new WaitForSeconds(waittime);
-    //    }
-    //}
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
+        yield return StartCoroutine(TimeTracker());
+    yield break;
+    }
+
+IEnumerator TimeTracker()
+{
+    while (true)
+    {
+        EventManager.boxDetection?.Invoke(); //?. null condition operator
+        yield return new WaitForSeconds(waittime);
+    }
+}
 }
 

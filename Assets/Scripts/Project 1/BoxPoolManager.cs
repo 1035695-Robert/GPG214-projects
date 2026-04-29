@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Xml.Linq;
 using Unity.Android.Gradle;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -18,7 +19,7 @@ public class BoxPoolManager : MonoBehaviour
 {
     #region Singleton
     public static BoxPoolManager Instance;
-    AssetBundles bundle;
+   public AssetBundles bundle;
     private void Awake()
     {
 
@@ -27,12 +28,19 @@ public class BoxPoolManager : MonoBehaviour
         //return imediately
         Instance = this;
 
-        bundle = GameObject.Find("assetBundle").GetComponent<AssetBundles>();
+      
 
     }
     private void OnEnable()
     {
         EventManager.objectPool += CreatePool;
+        EventManager.applyDlc += ApplyDlc;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.objectPool -= CreatePool;
+        EventManager.applyDlc -= ApplyDlc;
     }
     #endregion 
 
@@ -40,19 +48,25 @@ public class BoxPoolManager : MonoBehaviour
 
     public Storage package = new Storage();
 
+    public string filePath;
     TextureLoadAsync loadTexture;
 
+    Texture boxTexture;
 
     public GameObject boxPrefab;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
+    private void ApplyDlc()
+    {
+        bundle = GameObject.Find("assetBundle").GetComponent<AssetBundles>();
+    }
 
     public IEnumerator CreatePool()
     {
         loadTexture = GetComponent<TextureLoadAsync>();
 
-        string filePath = Path.Combine(Application.streamingAssetsPath, "StorageData.json");
+        filePath = Path.Combine(Application.streamingAssetsPath, "StorageData.json");
         string jsonData = File.ReadAllText(filePath);
         package = JsonUtility.FromJson<Storage>(jsonData);
 
@@ -71,6 +85,11 @@ public class BoxPoolManager : MonoBehaviour
 
             if (boxPrefab == null)
             {
+                if (bundle == null)
+                {
+                    yield break;
+                }
+
                 foreach (string path in bundle.assetPath)
                 {
                     Debug.Log(path);
@@ -78,33 +97,38 @@ public class BoxPoolManager : MonoBehaviour
                     {
                         boxPrefab = bundle.dlcBundle.LoadAsset<GameObject>(path);
 
-                        if (boxPrefab != null)
+                        if (boxPrefab == null)
                         {
-                           
+
                         }
                     }
+                    if(path.Contains(item.boxColor.ToLower() + ".png"))
+                    {
+                        Debug.Log("Dlc texture");
+                        boxTexture = bundle.dlcBundle.LoadAsset<Texture>(path);
+                    }
                 }
-            } 
-            yield return StartCoroutine(loadTexture.FilePath(item.boxColor));
-
-
+               
+            }
+            else
+            {
+                if (boxPrefab != null)
+                {
+                    yield return StartCoroutine(loadTexture.FilePath(item.boxColor));
+                    boxTexture = loadTexture.ReturnTexture();
+                }
+            }
             for (int i = 0; i < item.poolSize; i++)
             {
 
                 GameObject box = Instantiate(boxPrefab, new Vector3(0, 2.5f, 0), Quaternion.identity);
 
-                #region oldTextureMethod
-                //AsyncTextureLoad loadTextureOld = box.GetComponent<AsyncTextureLoad>();
-                //yield return StartCoroutine(loadTextureOld.FilePath(item.boxColor));
-                #endregion //this method slows down the Game run time due to it loading all the textures onto each object.          
-
                 box.name.TrimEnd("(Clone)");
                 box.SetActive(false);
 
-                AddTexture(box, loadTexture.ReturnTexture());
+                AddTexture(box, boxTexture);
 
                 objectPool.Enqueue(box);
-
             }
             poolDictionary.Add(item.boxName, objectPool);
         }

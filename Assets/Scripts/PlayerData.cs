@@ -75,7 +75,7 @@ public class PlayerData : MonoBehaviour
 
         }
         else
-            Debug.Log("missing path");
+            Debug.LogError("missing path");
         //return null;
 
     }

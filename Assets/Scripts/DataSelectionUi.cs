@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static UnityEngine.Rendering.DebugUI;
@@ -64,7 +65,8 @@ public class DataSelectionUi : MonoBehaviour
             newLevelButtons = levelSelectionButton.transform.Find("newLevel").gameObject;
             newLevelButtons.SetActive(true);
             applyDlc = true;
-            //EventManager.applyDlc.Invoke();
+           
+            
         }
     }
     public void levelSelected(int idValue)
@@ -90,15 +92,16 @@ public class DataSelectionUi : MonoBehaviour
             yield return null;
         }
 
-       // operation.allowSceneActivation = true;
-  //      yield return operation;
-       
-        if (applyDlc == true)
+        // operation.allowSceneActivation = true;
+        //      yield return operation;
+
+      if(applyDlc == true)
         {
             EventManager.applyDlc.Invoke();
-            Debug.Log("applyDLC");
         }
+      
        EventManager.setLevel.Invoke(selectedLevel);
+      yield return EventManager.startGameManager.Invoke();
 
     }
 

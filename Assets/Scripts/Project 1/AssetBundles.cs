@@ -1,11 +1,7 @@
 using System;
-using System.Collections;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
-using Unity.Android.Gradle;
 using UnityEngine;
-using static UnityEngine.Rendering.VirtualTexturing.Debugging;
+
 
 public class AssetBundles : MonoBehaviour
 {
@@ -17,14 +13,22 @@ public class AssetBundles : MonoBehaviour
 
     public AssetBundle dlcBundle;
 
-    void Awake()
+    private void OnEnable()
     {
-
-        LoadAssetBundle();
+        EventManager.dlcCheck += LoadAssetBundle;
     }
-    private void LoadAssetBundle()
+    private void OnDisable()
     {
-       //if player has Dlc Run this
+        EventManager.dlcCheck -= LoadAssetBundle;
+    }
+
+    private void LoadAssetBundle(bool hasDlc)
+    {
+        if (hasDlc == false)
+        { return; }
+        Debug.Log("hasDlc");
+        DontDestroyOnLoad(gameObject);
+        //if player has Dlc Run this
         try
         {
             combinePath = Path.Combine(Application.streamingAssetsPath, folderPath, fileName);
@@ -39,8 +43,9 @@ public class AssetBundles : MonoBehaviour
                     Debug.LogError("failed to load AssetBundle");
                 }
 
-                 assetPath = dlcBundle.GetAllAssetNames();
-           
+                assetPath = dlcBundle.GetAllAssetNames();
+
+
             }
         }
         catch (FileNotFoundException e)
@@ -55,7 +60,7 @@ public class AssetBundles : MonoBehaviour
         {
             if (dlcBundle != null)
             {
-               //dlcBundle.Unload(false);
+                //dlcBundle.Unload(false);
                 Debug.Log("bundle memory cleaned up.");
 
             }
