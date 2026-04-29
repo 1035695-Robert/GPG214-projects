@@ -1,6 +1,6 @@
 total times Player Selected
-	Player1: 12
-	Player2: 14
+	Player1: 13
+	Player2: 16
 	Player3: 3
 
 ----------
@@ -204,3 +204,27 @@ April 28, 2026
 	Level Selected: level2
 	Time to Select Player 2.27
 	Played for 59.24 seconds after Selection
+----------
+player1:
+April 29, 2026
+	Current Score: 0
+	DLC:False
+	Level Selected: level1
+	Time to Select Player 5.12
+	Played for 8.70 seconds after Selection
+----------
+player2:
+April 29, 2026
+	Current Score: 12
+	DLC:True
+	Level Selected: level3
+	Time to Select Player 155.91
+	Played for 4.67 seconds after Selection
+----------
+player2:
+April 29, 2026
+	Current Score: 12
+	DLC:True
+	Level Selected: level2
+	Time to Select Player 5.38
+	Played for 5.32 seconds after Selection

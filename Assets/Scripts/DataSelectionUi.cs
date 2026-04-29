@@ -82,7 +82,7 @@ public class DataSelectionUi : MonoBehaviour
 
         AsyncOperation operation = SceneManager.LoadSceneAsync("GPG214");
 
-        operation.allowSceneActivation = false;
+//        operation.allowSceneActivation = false;
        
         while(!operation.isDone)
         {
@@ -90,8 +90,8 @@ public class DataSelectionUi : MonoBehaviour
             yield return null;
         }
 
-        operation.allowSceneActivation = true;
-        yield return operation;
+       // operation.allowSceneActivation = true;
+  //      yield return operation;
        
         if (applyDlc == true)
         {
