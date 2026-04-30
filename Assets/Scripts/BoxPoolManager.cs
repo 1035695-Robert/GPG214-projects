@@ -6,7 +6,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Xml.Linq;
-using Unity.Android.Gradle;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -52,6 +51,7 @@ public class BoxPoolManager : MonoBehaviour
     TextureLoadAsync loadTexture;
 
     Texture boxTexture;
+    Texture l1Texture;
 
     public GameObject boxPrefab;
 
@@ -106,6 +106,7 @@ public class BoxPoolManager : MonoBehaviour
                     {
                         Debug.Log("Dlc texture");
                         boxTexture = bundle.dlcBundle.LoadAsset<Texture>(path);
+                        l1Texture = bundle.dlcBundle.LoadAsset<Texture>("L1" + path);
                     }
                 }
                
@@ -126,7 +127,7 @@ public class BoxPoolManager : MonoBehaviour
                 box.name.TrimEnd("(Clone)");
                 box.SetActive(false);
 
-                AddTexture(box, boxTexture);
+                AddTexture(box, boxTexture, item.boxColor);
 
                 objectPool.Enqueue(box);
             }
@@ -135,11 +136,23 @@ public class BoxPoolManager : MonoBehaviour
         yield break;
     }
 
-    public void AddTexture(GameObject box, Texture texture)
+    public void AddTexture(GameObject box, Texture texture, string boxColor)
     {
         if (texture != null)
         {
             box.GetComponent<Renderer>().material.mainTexture = texture;
+            box.GetComponent<Renderer>().material.color = Color.white;
+
+            Transform L1 = box.transform.Find("LOD1");
+            if (L1 != null)
+            {
+                if (UnityEngine.ColorUtility.TryParseHtmlString(boxColor.ToLower(), out Color newColor))
+                {
+                    L1.GetComponent<Renderer>().material.color = newColor;
+                }
+                else
+                    Debug.LogError("no match");
+            }
         }
         else
         {

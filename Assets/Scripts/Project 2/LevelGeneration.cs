@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
+using NUnit.Framework;
 
 
 
@@ -97,14 +98,13 @@ public class LevelGeneration : MonoBehaviour
                     Color color = selectedLevelMap.GetPixel(x, z);
                     // Debug.Log(color);
                     string hexColor = color.ToHexString();
-                    //Debug.Log(hexColor);
+                    Debug.Log(hexColor);
                     Vector3 spawnPosition = GridPlacement(x, z);
 
                     switch (hexColor)
                     {
-                        case "00FF00FF": // green = BoxLoaders
-                           // Debug.Log("GREEN");
-                            GameObject loader = objectToSpawn[0];
+                        case "00FF00FF": 
+                        GameObject loader = objectToSpawn.FirstOrDefault(obj => obj.name.Contains("BoxLoader"));
                             spawnPosition.y = 2f;
                             GameObject target = ItemSpawn(spawnPosition, loader);
                             target.transform.Rotate(0, 90, 0);
@@ -112,23 +112,22 @@ public class LevelGeneration : MonoBehaviour
                             break;
 
                         case "0000FFFF": //Blue = Belt
-                           //Debug.Log("BLUE " + spawnPosition);
-                            GameObject belt = objectToSpawn[1];
+                            GameObject belt = objectToSpawn.FirstOrDefault(obj => obj.name.Contains("ConveyorBelt"));
                             ItemSpawn(spawnPosition, belt);
                             break;
 
                         case "": //splitBelts
                             break;
 
-                        case "00000000": //black = Obstacles
-                            GameObject obstacle = objectToSpawn[3];
+                        case "000000FF": //black = Obstacles
+                    
+                            GameObject obstacle = objectToSpawn.FirstOrDefault(obj => obj.name.Contains("Obstacles"));
                             ItemSpawn(spawnPosition, obstacle);
                             break;
 
                         case "FF0000FF": //Red = Goals
-                                         //Debug.Log("RED");
-                            string toFind = "Bin";
-                            var result = objectToSpawn.FirstOrDefault(i => i.name.Contains(toFind));
+                            
+                            var result = objectToSpawn.FirstOrDefault(i => i.name.Contains("Bin"));
                             GameObject goal = result;
                             ItemSpawn(spawnPosition, goal);
                             break;
@@ -137,7 +136,7 @@ public class LevelGeneration : MonoBehaviour
                     }
                 }
             }
-
+        StaticBatchingUtility.Combine(this.gameObject);
         yield return null;
     }
 
@@ -145,8 +144,13 @@ public class LevelGeneration : MonoBehaviour
     GameObject ItemSpawn(Vector3 spawnPosition, GameObject prefab)
     {
         GameObject target = Instantiate(prefab, spawnPosition, Quaternion.identity);
+        target.transform.parent = this.transform;
         target.name = prefab.name;
         EventManager.ItemTextureLoad.Invoke(target);
+
+        
+
+
         return target;
     }
 

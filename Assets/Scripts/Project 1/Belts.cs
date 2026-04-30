@@ -11,7 +11,7 @@ public class Belts : MonoBehaviour
     protected float waitTime = 1.6f;
     protected bool isMoving = false;
 
-    //G Rigidbody detectedBox;
+    // Rigidbody detectedBox;
 
 
     //protected IEnumerator MoveItem(Transform item)

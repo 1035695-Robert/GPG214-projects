@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class VoidScore : MonoBehaviour
+public class GoalBinScore : MonoBehaviour
 {
     public Score currentScoreData = new Score();
     public string fileName = "ScoreSaveData.txt";

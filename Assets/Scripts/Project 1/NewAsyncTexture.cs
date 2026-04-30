@@ -1,5 +1,7 @@
+using NUnit.Framework;
 using SimpleFactory;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NewAsyncTexture : MonoBehaviour
@@ -24,6 +26,9 @@ public class NewAsyncTexture : MonoBehaviour
     Texture2D beltTex;
     Texture2D splitTex;
 
+    string L1 = "LOD1";
+    string L2 = "LOD2";
+
     private void OnEnable()
     {
         EventManager.ItemTextureLoad += TextureLoad;
@@ -35,6 +40,7 @@ public class NewAsyncTexture : MonoBehaviour
     private void Awake()
     {
         StartCoroutine(LoadTexture());
+        DontDestroyOnLoad(gameObject);
     }
 
 
@@ -67,6 +73,7 @@ public class NewAsyncTexture : MonoBehaviour
         beltAO = requestBeltAO.asset as Texture2D;
         boxLoaderARM = requestBoxLoaderARM.asset as Texture2D;
 
+
         yield return null;
         //this could be done more compact.
     }
@@ -87,13 +94,17 @@ public class NewAsyncTexture : MonoBehaviour
             case "SplitBelts":
                 LoadTextureToBeltSplit(gameItem);
                 break;
+
+            case "Obstacles":
+                LoadObstactleTexture(gameItem);
+                break;
         }
     }
     public void LoadTextureToBelt(GameObject obj)
     {//need to convert to texture from sprite
-       
 
-       MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
+
+        MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
 
         renderer.material.EnableKeyword("_NORMALMAP");
         renderer.material.EnableKeyword("_OCCLUSIONMAP");
@@ -102,6 +113,14 @@ public class NewAsyncTexture : MonoBehaviour
         renderer.material.SetTexture("_BumpMap", beltNormal);
         //renderer.material.SetFloat("_BumpScale", 2f);
         renderer.material.SetTexture("_OcclusionMap", beltAO);
+
+        Transform LOD1 = obj.transform.Find(L1);
+        LOD1.GetComponent<MeshRenderer>().material.SetTexture("_BaseMap", beltTex);
+
+        Transform LOD2 = obj.transform.Find(L2);
+        LOD2.GetComponent<Renderer>().material.color = new Color32(72, 70, 70, 1);
+
+        obj.GetComponent<Renderer>().allowOcclusionWhenDynamic = true;
     }
     public void LoadTextureToBeltSplit(GameObject obj)
     {
@@ -117,12 +136,19 @@ public class NewAsyncTexture : MonoBehaviour
         renderer.material.SetTexture("_BumpMap", splitBeltNormal);
         //renderer.material.SetFloat("_BumpScale", 2f);
         renderer.material.SetTexture("_OcclusionMap", splitBeltAO);
+
+        Transform LOD1 = obj.transform.Find(L1);
+        LOD1.GetComponent<MeshRenderer>().material.SetTexture("_BaseMap", splitTex);
+
+        Transform LOD2 = obj.transform.Find(L2);
+        LOD2.GetComponent<Renderer>().material.color = new Color32(72, 70, 70, 1);
+
+        obj.GetComponent<Renderer>().allowOcclusionWhenDynamic = true;
     }
 
     public void LoadTextureToBoxLoader(GameObject obj)
     {
         //need to convert to texture from sprite
-
         MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
 
         renderer.material.EnableKeyword("_NORMALMAP");
@@ -132,10 +158,22 @@ public class NewAsyncTexture : MonoBehaviour
         renderer.material.SetTexture("_BaseMap", boxLoaderTex);
         renderer.material.SetTexture("_BumpMap", boxLoaderNormal);
         // renderer.material.SetFloat("_BumpScale", 2f);
-        renderer.material.SetTexture("_OcclusionMap", boxLoaderARM);
+        //renderer.material.SetTexture("_OcclusionMap", boxLoaderARM);
         renderer.material.SetTexture("_MetallicGlossMap", boxLoaderARM);
 
+        Transform LOD1 = obj.transform.Find(L1);
+        LOD1.GetComponent<MeshRenderer>().material.SetTexture("_BaseMap", boxLoaderTex);
 
+        Transform LOD2 = obj.transform.Find(L2);
+        LOD2.GetComponent<Renderer>().material.color = new Color32(79,26, 15 ,255);
+
+        obj.GetComponent<Renderer>().allowOcclusionWhenDynamic = true;
+    }
+
+
+    void LoadObstactleTexture(GameObject obj)
+    {
+        obj.GetComponent<Renderer>().material.color = Color.black;
     }
 
     public static Texture2D TextureFromSprite(Sprite sprite)
