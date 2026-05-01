@@ -163,9 +163,6 @@ public class BoxPoolManager : MonoBehaviour
     public GameObject SpawnFromPool(string itemID, Vector3 position, Quaternion rotation)
     {// this is a factory pattern
 
-
-
-
         if (!poolDictionary.ContainsKey(itemID))
         {
             Debug.LogWarning("pool with name" + itemID + " doesnt exist");

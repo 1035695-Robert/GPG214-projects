@@ -34,7 +34,7 @@ public class AsyncTextureLoad : MonoBehaviour
         string filePath = Path.Combine(Application.streamingAssetsPath, "Texture/" + textureName + ".png");
         if (!File.Exists(filePath))
         {
-            yield return null;
+            yield break;
         }
         yield return StartCoroutine(LoadTextureFromFile(filePath));
     }

@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public enum PlayerID
 {
-
     player1 = 0,
     player2 = 1,
     player3 = 2,
@@ -12,7 +11,6 @@ public enum PlayerID
 
 public enum LevelID
 {
-
     level1 = 0,
     level2 = 1,
     level3 = 2,
